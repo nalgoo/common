@@ -1,0 +1,29 @@
+{
+  "name": "nalgoo/common",
+  "type": "library",
+  "description": "Collection of common classes used in Nalgoo APIs",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vlado Senasi",
+      "email": "vladimir.senasi@nalgoo.com"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "ext-json": "*",
+    "ext-pdo":"*",
+    "doctrine/dbal": "^2.9",
+    "doctrine/event-manager": "^1.0",
+    "psr/http-message": "^1.0",
+    "psr/log": "^1.1",
+    "slim/psr7": "^0.5",
+    "slim/slim": "^4.2",
+    "webmozart/assert": "^1.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Nalgoo\\Common\\": "src/"
+    }
+  }
+}
