@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\Handlers;
 
-use App\Application\Actions\ActionError;
-use App\Application\Actions\ActionPayload;
+use Nalgoo\Common\Application\Actions\ActionError;
+use Nalgoo\Common\Application\Actions\ActionPayload;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
