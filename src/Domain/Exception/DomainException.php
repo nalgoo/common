@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace HttpBadRequestException\Domain\Exception;
+namespace Nalgoo\Common\Exception;
 
 use Exception;
 
