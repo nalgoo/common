@@ -1,6 +1,6 @@
 <?php
 
-namespace Nalgoo\Common\Infrastructure\Persistence\DoctrineTypes\CsvArrayType;
+namespace Nalgoo\Common\Infrastructure\Persistence\DoctrineTypes;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\SimpleArrayType;
