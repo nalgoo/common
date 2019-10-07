@@ -30,7 +30,7 @@ class CsvArrayType extends SimpleArrayType
 
 		$value = is_resource($value) ? stream_get_contents($value) : $value;
 
-		return explode(',', $value);
+		return $this->fromCsv($value);
 	}
 
 	/**
