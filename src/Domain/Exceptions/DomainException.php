@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Nalgoo\Common\Exception;
+namespace Nalgoo\Common\Domain\Exceptions;
 
 use Exception;
 
