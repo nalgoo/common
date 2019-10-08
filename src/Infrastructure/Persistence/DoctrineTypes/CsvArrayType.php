@@ -24,7 +24,7 @@ class CsvArrayType extends SimpleArrayType
 	 */
 	public function convertToPHPValue($value, AbstractPlatform $platform)
 	{
-		if ($value === null) {
+	if ($value === null) {
 			return [];
 		}
 
