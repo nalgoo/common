@@ -92,13 +92,15 @@ abstract class Action
 	 */
 	protected function getJson(): array
 	{
-		if (!$this->request->getBody()->getSize()) {
+		$body = $this->request->getBody()->getContents();
+
+		if (trim($body) === '') {
 			throw new HttpBadRequestException($this->request, 'Missing JSON input');
 		}
 
-		$input = json_decode($this->request->getBody()->getContents(), true);
-
-		if (json_last_error() !== JSON_ERROR_NONE) {
+		try {
+			$input = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+		} catch (\JsonException $e) {
 			throw new HttpBadRequestException($this->request, 'Malformed JSON input.');
 		}
 
@@ -146,6 +148,17 @@ abstract class Action
 		return $this->response
 			->withStatus($statusCode)
 			->withHeader('Content-Type', 'application/json');
+	}
+
+	protected function setCookie(string $name, string $value, ?\DateTimeInterface $expires)
+	{
+		$securePart = $this->request->getUri()->getScheme() === 'https' ? ';Secure' : '';
+
+		$expiresPart = $expires ? (';Expires=' . $expires->format('r')) : '';
+
+		$cookie = sprintf('%s=%s;Path=/%s;HttpOnly%s', rawurlencode($name), rawurlencode($value), $expiresPart, $securePart);
+
+		$this->response = $this->response->withAddedHeader('Set-Cookie', $cookie);
 	}
 
 	protected function getCookie(string $cookieName, ?string $default = null): ?string
