@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\Actions;
 
+use Nalgoo\Common\Application\Interfaces\SerializerInterface;
+use Nalgoo\Common\Application\Response\StatusCode;
 use Nalgoo\Common\Domain\Exceptions\DomainRecordNotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -33,11 +35,14 @@ abstract class Action
 	protected $args;
 
 	/**
-	 * @param LoggerInterface $logger
+	 * @var SerializerInterface
 	 */
-	public function __construct(LoggerInterface $logger)
+	private $serializer;
+
+	public function __construct(LoggerInterface $logger, SerializerInterface $serializer)
 	{
 		$this->logger = $logger;
+		$this->serializer = $serializer;
 	}
 
 	/**
@@ -69,21 +74,6 @@ abstract class Action
 	abstract protected function action(): Response;
 
 	/**
-	 * @return array|object
-	 * @throws HttpBadRequestException
-	 */
-	protected function getFormData()
-	{
-		$input = json_decode(file_get_contents('php://input'), true);
-
-		if (json_last_error() !== JSON_ERROR_NONE) {
-			throw new HttpBadRequestException($this->request, 'Malformed JSON input.');
-		}
-
-		return $input;
-	}
-
-	/**
 	 * @param  string $name
 	 * @return mixed
 	 * @throws HttpBadRequestException
@@ -98,7 +88,26 @@ abstract class Action
 	}
 
 	/**
+	 * @throws HttpBadRequestException
+	 */
+	protected function getJson(): array
+	{
+		if (!$this->request->getBody()->getSize()) {
+			throw new HttpBadRequestException($this->request, 'Missing JSON input');
+		}
+
+		$input = json_decode($this->request->getBody()->getContents(), true);
+
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			throw new HttpBadRequestException($this->request, 'Malformed JSON input.');
+		}
+
+		return $input;
+	}
+
+	/**
 	 * @param  array|object|null $data
+	 * @deprecated
 	 * @return Response
 	 */
 	protected function respondWithData($data = null): Response
@@ -109,6 +118,7 @@ abstract class Action
 
 	/**
 	 * @param ActionPayload $payload
+	 * @deprecated
 	 * @return Response
 	 */
 	protected function respond(ActionPayload $payload): Response
@@ -116,6 +126,26 @@ abstract class Action
 		$json = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 		$this->response->getBody()->write($json);
 		return $this->response->withHeader('Content-Type', 'application/json');
+	}
+
+	protected function respondWithRedirect(string $uri, bool $changeToGet = false): Response
+	{
+		$statusCode = $changeToGet ? StatusCode::REDIRECTION_SEE_OTHER : StatusCode::REDIRECTION_TEMPORARY_REDIRECT;
+
+		return $this->response
+			->withStatus($statusCode)
+			->withHeader('location', $uri);
+	}
+
+	protected function respondWithJson($data, int $statusCode = 200): Response
+	{
+		$json = $this->serializer->serialize($data);
+
+		$this->response->getBody()->write($json);
+
+		return $this->response
+			->withStatus($statusCode)
+			->withHeader('Content-Type', 'application/json');
 	}
 
 	protected function getCookie(string $cookieName, ?string $default = null): ?string

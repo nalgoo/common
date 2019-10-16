@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Nalgoo\Common\Application\ResponseEmitter;
+namespace Nalgoo\Common\Application\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use Slim\ResponseEmitter as SlimResponseEmitter;
