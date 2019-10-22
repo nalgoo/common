@@ -19,7 +19,8 @@
     "psr/log": "^1.1",
     "slim/psr7": "^0.5",
     "slim/slim": "^4.2",
-    "webmozart/assert": "^1.5"
+    "webmozart/assert": "^1.5",
+    "league/oauth2-server": "^8.0"
   },
   "autoload": {
     "psr-4": {
