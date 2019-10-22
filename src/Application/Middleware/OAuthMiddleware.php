@@ -3,15 +3,14 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\Middleware;
 
-use League\OAuth2\Server\Exception\OAuthServerException;
-use League\OAuth2\Server\ResourceServer;
+use Nalgoo\Common\Infrastructure\OAuth\OAuthException;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthScopedInterface;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthValidator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpForbiddenException;
 use Slim\Routing\Route;
 
 class OAuthMiddleware implements MiddlewareInterface
@@ -34,7 +33,10 @@ class OAuthMiddleware implements MiddlewareInterface
 		$this->strictHandlerCheck = $strictHandlerCheck;
 	}
 
-
+	/**
+	 * @throws HttpForbiddenException
+	 * @throws \Exception
+	 */
 	public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
 	{
 		try {
@@ -54,8 +56,8 @@ class OAuthMiddleware implements MiddlewareInterface
 
 			$this->oAuthValidator->validate($request, $requiredScope);
 
-		} catch (OAuthServerException $exception) {
-			throw new HttpBadRequestException($request, $exception->getMessage());
+		} catch (OAuthException $e) {
+			throw new HttpForbiddenException($request, $e->getMessage());
 		}
 
 		return $handler->handle($request);

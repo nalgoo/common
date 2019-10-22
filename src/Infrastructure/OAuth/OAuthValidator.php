@@ -29,6 +29,11 @@ class OAuthValidator
 	 */
 	private $requiredAudience;
 
+	/**
+	 * @var ScopeInterface|null
+	 */
+	private $wildcardScope;
+
 	public function __construct(CryptKey $publicKey, ClockService $clockService)
 	{
 		$this->publicKey = $publicKey;
@@ -38,6 +43,11 @@ class OAuthValidator
 	public function setRequiredAudience(string $audience)
 	{
 		$this->requiredAudience = $audience;
+	}
+
+	public function setWildcardScope(ScopeInterface $scope)
+	{
+		$this->wildcardScope = $scope;
 	}
 
 	/**
@@ -73,15 +83,24 @@ class OAuthValidator
 	/**
 	 * @throws OAuthScopeException
 	 */
-	protected function validateScope(Token $token, ScopeInterface $scope): bool
+	protected function validateScope(Token $token, ScopeInterface $requiredScope): bool
 	{
-		$tokenScopes = array_filter(explode(' ', $token->getClaim('scopes')));
+		/** @var ScopeInterface[] $tokenScopes */
+		$tokenScopes = array_map(function (string $scope) {
+			new Scope($scope);
+		}, array_filter(explode(' ', $token->getClaim('scopes'))));
 
-		if (!in_array($scope->getId(), $tokenScopes)) {
-			throw new OAuthScopeException('Token is missing required scope - ' . $scope->getId());
+		foreach ($tokenScopes as $tokenScope) {
+			if ($tokenScope->isSameAs($requiredScope)) {
+				return true;
+			}
+
+			if ($this->wildcardScope && $tokenScope->isSameAs($this->wildcardScope)) {
+				return true;
+			}
 		}
 
-		return true;
+		throw new OAuthScopeException('Token is missing required scope - ' . $requiredScope->getId());
 	}
 
 	/**

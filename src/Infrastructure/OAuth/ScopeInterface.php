@@ -7,4 +7,6 @@ interface ScopeInterface
 {
 	public function getId(): string;
 
+	public function isSameAs(ScopeInterface $scope): bool;
+
 }
