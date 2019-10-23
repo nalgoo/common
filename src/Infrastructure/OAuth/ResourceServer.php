@@ -8,16 +8,18 @@ use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\ValidationData;
 use League\OAuth2\Server\CryptKey;
-use League\OAuth2\Server\Exception\OAuthServerException;
 use Nalgoo\Common\Infrastructure\Clock\ClockService;
+use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthAudienceException;
+use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthScopeException;
+use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthTokenException;
 use Psr\Http\Message\ServerRequestInterface;
 
-class OAuthValidator
+class ResourceServer
 {
 	/**
 	 * @var CryptKey
 	 */
-	protected $publicKey;
+	private $publicKey;
 
 	/**
 	 * @var ClockService
@@ -25,55 +27,38 @@ class OAuthValidator
 	private $clockService;
 
 	/**
-	 * @var string|null
+	 * @var string
 	 */
-	private $requiredAudience;
+	private $audience;
 
-	/**
-	 * @var ScopeInterface|null
-	 */
-	private $wildcardScope;
-
-	public function __construct(CryptKey $publicKey, ClockService $clockService)
+	public function __construct(CryptKey $publicKey, ClockService $clockService, string $audience)
 	{
 		$this->publicKey = $publicKey;
 		$this->clockService = $clockService;
-	}
 
-	public function setRequiredAudience(string $audience)
-	{
-		$this->requiredAudience = $audience;
-	}
-
-	public function setWildcardScope(ScopeInterface $scope)
-	{
-		$this->wildcardScope = $scope;
+		$this->audience = $audience;
 	}
 
 	/**
-	 * @throws OAuthScopeException
 	 * @throws OAuthTokenException
 	 * @throws OAuthAudienceException
+	 * @throws OAuthScopeException
 	 */
-	public function validate(ServerRequestInterface $request, ?ScopeInterface $scope)
+	public function validateAuthorization(ServerRequestInterface $request, ScopeInterface $requiredScope)
 	{
 		$token = $this->validateToken($request);
 
-		$this->validateAudience($token, $this->requiredAudience);
+		$this->validateAudience($token, $this->audience);
 
-		$this->validateScope($token, $scope);
+		$this->validateScope($token, $requiredScope);
 	}
 
 	/**
 	 * @throws OAuthAudienceException
 	 */
-	protected function validateAudience(Token $token, ?string $requiredAudience): bool
+	protected function validateAudience(Token $token, string $audience): bool
 	{
-		if (!$this->requiredAudience) {
-			return true;
-		}
-
-		if ($token->getClaim('aud') !== $requiredAudience) {
+		if ($token->getClaim('aud') !== $audience) {
 			throw new OAuthAudienceException();
 		}
 
@@ -85,22 +70,17 @@ class OAuthValidator
 	 */
 	protected function validateScope(Token $token, ScopeInterface $requiredScope): bool
 	{
-		/** @var ScopeInterface[] $tokenScopes */
-		$tokenScopes = array_map(function (string $scope) {
-			new Scope($scope);
-		}, array_filter(explode(' ', $token->getClaim('scopes'))));
+		$scopes = array_map(function (string $identifer) {
+			return new Scope($identifer);
+		}, array_filter(explode(' ', $token->getClaim('scope'))));
 
-		foreach ($tokenScopes as $tokenScope) {
-			if ($tokenScope->isSameAs($requiredScope)) {
-				return true;
-			}
-
-			if ($this->wildcardScope && $tokenScope->isSameAs($this->wildcardScope)) {
+		foreach ($scopes as $scope) {
+			if ($requiredScope->isSatisfiedBy($scope)) {
 				return true;
 			}
 		}
 
-		throw new OAuthScopeException('Token is missing required scope - ' . $requiredScope->getId());
+		throw new OAuthScopeException('Token is missing required scope - ' . $requiredScope->getIdentifier());
 	}
 
 	/**

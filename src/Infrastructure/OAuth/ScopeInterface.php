@@ -5,8 +5,8 @@ namespace Nalgoo\Common\Infrastructure\OAuth;
 
 interface ScopeInterface
 {
-	public function getId(): string;
+	public function getIdentifier(): string;
 
-	public function isSameAs(ScopeInterface $scope): bool;
+	public function isSatisfiedBy(ScopeInterface $scope): bool;
 
 }

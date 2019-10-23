@@ -3,14 +3,17 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\Middleware;
 
-use Nalgoo\Common\Infrastructure\OAuth\OAuthException;
+use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthException;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthScopedInterface;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthValidator;
+use Nalgoo\Common\Infrastructure\OAuth\ResourceServer;
+use Nalgoo\Common\Infrastructure\OAuth\UriScope;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Exception\HttpForbiddenException;
+use Slim\Exception\HttpUnauthorizedException;
 use Slim\Routing\Route;
 
 class OAuthMiddleware implements MiddlewareInterface
@@ -18,19 +21,18 @@ class OAuthMiddleware implements MiddlewareInterface
 	private const CLASS_NAME_REGEX = '[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*';
 
 	/**
-	 * @var OAuthValidator
+	 * @var ResourceServer
 	 */
-	private $oAuthValidator;
+	private $resourceServer;
 
 	/**
-	 * @var bool if true, then all class-handlers needs to implement OAuthScopedInterface
+	 * @var string|null
 	 */
-	private $strictHandlerCheck;
+	private $host;
 
-	public function __construct(OAuthValidator $oAuthValidator, bool $strictHandlerCheck = true)
+	public function __construct(ResourceServer $resourceServer)
 	{
-		$this->oAuthValidator = $oAuthValidator;
-		$this->strictHandlerCheck = $strictHandlerCheck;
+		$this->resourceServer = $resourceServer;
 	}
 
 	/**
@@ -44,20 +46,19 @@ class OAuthMiddleware implements MiddlewareInterface
 
 			$handlerClass = $this->getHandlerClass($route->getCallable());
 
-			$requiredScope = null;
-
-			if ($handlerClass) {
-				if ($handlerClass instanceof OAuthScopedInterface) {
-					$requiredScope = $handlerClass::getRequiredScope();
-				} elseif ($this->strictHandlerCheck) {
-					throw new \Exception('Handler does not implements OAuthScopedInterface, but strict checking is on');
-				}
+			if (!$handlerClass instanceof OAuthScopedInterface) {
+				throw new \Exception('Handler does not implements OAuthScopedInterface');
 			}
 
-			$this->oAuthValidator->validate($request, $requiredScope);
+			UriScope::setDefaultHost($this->host ?? $request->getUri()->getHost());
+			UriScope::setDefaultScheme($request->getUri()->getScheme());
+
+			$requiredScope = $handlerClass::getRequiredScope();
+
+			$this->resourceServer->validateAuthorization($request, $requiredScope);
 
 		} catch (OAuthException $e) {
-			throw new HttpForbiddenException($request, $e->getMessage());
+			throw new HttpUnauthorizedException($request, $e->getMessage());
 		}
 
 		return $handler->handle($request);

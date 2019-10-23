@@ -8,21 +8,21 @@ class Scope implements ScopeInterface
 	/**
 	 * @var string
 	 */
-	private $id;
+	private $identifier;
 
-	public function __construct(string $id)
+	public function __construct(string $identifier)
 	{
-		$this->id = $id;
+		$this->identifier = $identifier;
 	}
 
-	public function getId(): string
+	public function getIdentifier(): string
 	{
-		return $this->id;
+		return $this->identifier;
 	}
 
-	public function isSameAs(ScopeInterface $scope): bool
+	public function isSatisfiedBy(ScopeInterface $scope): bool
 	{
-		return $this->getId() === $scope->getId();
+		return $this->getIdentifier() === $scope->getIdentifier();
 	}
 
 }
