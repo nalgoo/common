@@ -46,9 +46,7 @@ class OAuthMiddleware implements MiddlewareInterface
 
 			$handlerClass = $this->getHandlerClass($route->getCallable());
 
-//			if (!$handlerClass instanceof OAuthScopedInterface) {
-
-			if ($this->implements($handlerClass, OAuthScopedInterface::class)) {
+			if (!$this->implements($handlerClass, OAuthScopedInterface::class)) {
 				throw new \Exception('Handler does not implements OAuthScopedInterface');
 			}
 
