@@ -7,7 +7,7 @@ use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthException;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthScopedInterface;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthValidator;
 use Nalgoo\Common\Infrastructure\OAuth\ResourceServer;
-use Nalgoo\Common\Infrastructure\OAuth\UriScope;
+use Nalgoo\Common\Infrastructure\OAuth\UriPrefixedScope;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -49,9 +49,6 @@ class OAuthMiddleware implements MiddlewareInterface
 			if (!$handlerClass instanceof OAuthScopedInterface) {
 				throw new \Exception('Handler does not implements OAuthScopedInterface');
 			}
-
-			UriScope::setDefaultHost($this->host ?? $request->getUri()->getHost());
-			UriScope::setDefaultScheme($request->getUri()->getScheme());
 
 			$requiredScope = $handlerClass::getRequiredScope();
 

@@ -27,16 +27,15 @@ class ResourceServer
 	private $clockService;
 
 	/**
-	 * @var string
+	 * @var ResourceServerConfig
 	 */
-	private $audience;
+	private $config;
 
-	public function __construct(CryptKey $publicKey, ClockService $clockService, string $audience)
+	public function __construct(CryptKey $publicKey, ClockService $clockService, ResourceServerConfig $config)
 	{
 		$this->publicKey = $publicKey;
 		$this->clockService = $clockService;
-
-		$this->audience = $audience;
+		$this->config = $config;
 	}
 
 	/**
@@ -44,21 +43,21 @@ class ResourceServer
 	 * @throws OAuthAudienceException
 	 * @throws OAuthScopeException
 	 */
-	public function validateAuthorization(ServerRequestInterface $request, ScopeInterface $requiredScope)
+	public function validateAuthorization(ServerRequestInterface $request, ScopeInterface $requiredScopeName)
 	{
 		$token = $this->validateToken($request);
 
-		$this->validateAudience($token, $this->audience);
+		$this->validateAudience($token);
 
-		$this->validateScope($token, $requiredScope);
+		$this->validateScope($token, $requiredScopeName);
 	}
 
 	/**
 	 * @throws OAuthAudienceException
 	 */
-	protected function validateAudience(Token $token, string $audience): bool
+	protected function validateAudience(Token $token): bool
 	{
-		if ($token->getClaim('aud') !== $audience) {
+		if ($token->getClaim('aud') !== $this->config->getAudience()) {
 			throw new OAuthAudienceException();
 		}
 
@@ -68,19 +67,17 @@ class ResourceServer
 	/**
 	 * @throws OAuthScopeException
 	 */
-	protected function validateScope(Token $token, ScopeInterface $requiredScope): bool
+	protected function validateScope(Token $token, ScopeInterface $requiredScopeName): bool
 	{
-		$scopes = array_map(function (string $identifer) {
-			return new Scope($identifer);
-		}, array_filter(explode(' ', $token->getClaim('scope'))));
+		$requiredScope = $this->config->getScopeBaseUrl() . '/' . $requiredScopeName;
 
-		foreach ($scopes as $scope) {
-			if ($requiredScope->isSatisfiedBy($scope)) {
-				return true;
-			}
+		$scopes = array_filter(explode(' ', $token->getClaim('scope')));
+
+		if (!in_array($requiredScope, $scopes)) {
+			throw new OAuthScopeException('Token is missing required scope - ' . $requiredScope);
 		}
 
-		throw new OAuthScopeException('Token is missing required scope - ' . $requiredScope->getIdentifier());
+		return true;
 	}
 
 	/**
