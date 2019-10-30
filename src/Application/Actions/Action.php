@@ -156,7 +156,7 @@ abstract class Action
 
 		$expiresPart = $expires ? (';Expires=' . $expires->format('r')) : '';
 
-		$cookie = sprintf('%s=%s;Path=/%s;HttpOnly%s', rawurlencode($name), rawurlencode($value), $expiresPart, $securePart);
+		$cookie = sprintf('%s=%s;Path=/%s;HttpOnly;SameSite=None%s', rawurlencode($name), rawurlencode($value), $expiresPart, $securePart);
 
 		$this->response = $this->response->withAddedHeader('Set-Cookie', $cookie);
 	}
