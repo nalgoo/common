@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\Actions;
 
+use Nalgoo\Common\Application\Exceptions\DeserializeException;
 use Nalgoo\Common\Application\Interfaces\SerializerInterface;
 use Nalgoo\Common\Application\Response\StatusCode;
 use Nalgoo\Common\Domain\Exceptions\DomainRecordNotFoundException;
@@ -105,6 +106,21 @@ abstract class Action
 		}
 
 		return $input;
+	}
+
+	/**
+	 * @throws HttpBadRequestException
+	 */
+	protected function deserializeBody(string $className): object
+	{
+		try {
+			return $this->serializer->deserialize(
+				$this->request->getBody()->getContents(),
+				$className
+			);
+		} catch (DeserializeException $e) {
+			throw new HttpBadRequestException($this->request, 'Incorrect or missing input data');
+		}
 	}
 
 	/**
