@@ -10,12 +10,12 @@ abstract class Enum
 
 	public function __construct($value)
 	{
-		Assert::oneOf($value, $this->getConstants());
+		Assert::oneOf($value, static::getConstants());
 
 		$this->value = $value;
 	}
 
-	private function getConstants(): array
+	protected static function getConstants(): array
 	{
 		/** @noinspection PhpUnhandledExceptionInspection */
 		$reflection = new \ReflectionClass(static::class);
