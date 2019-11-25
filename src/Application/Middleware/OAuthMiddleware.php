@@ -5,9 +5,7 @@ namespace Nalgoo\Common\Application\Middleware;
 
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthException;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthScopedInterface;
-use Nalgoo\Common\Infrastructure\OAuth\OAuthValidator;
 use Nalgoo\Common\Infrastructure\OAuth\ResourceServer;
-use Nalgoo\Common\Infrastructure\OAuth\UriPrefixedScope;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
