@@ -200,7 +200,7 @@ abstract class Action
 		$uri = Http::createFromBaseUri($path, $this->request->getUri());
 
 		if ($queryParams) {
-			$uri = $uri->withQuery(http_build_query($queryParams, '', '&'));
+			$uri = $uri->withQuery(http_build_query($queryParams, '', '&', PHP_QUERY_RFC3986));
 		}
 
 		return (string) $uri;
