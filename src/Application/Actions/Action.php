@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\Actions;
 
+use League\Uri\Http;
 use Nalgoo\Common\Application\Exceptions\DeserializeException;
 use Nalgoo\Common\Application\Interfaces\SerializerInterface;
 use Nalgoo\Common\Application\Response\StatusCode;
@@ -189,6 +190,20 @@ abstract class Action
 		$cookies = $this->request->getQueryParams();
 
 		return array_key_exists($queryParamName, $cookies) ? $cookies[$queryParamName] : $default;
+	}
+
+	/**
+	 * Creates URI with given path (either absolute or relative) based on request's base URL
+	 */
+	protected function resolveUri(string $path, array $queryParams = []): string
+	{
+		$uri = Http::createFromBaseUri($path, $this->request->getUri());
+
+		if ($queryParams) {
+			$uri = $uri->withQuery(http_build_query($queryParams, '', '&'));
+		}
+
+		return (string) $uri;
 	}
 
 }
