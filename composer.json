@@ -21,7 +21,8 @@
     "psr/log": "^1.1",
     "slim/psr7": "^0.5",
     "slim/slim": "^4.2",
-    "webmozart/assert": "^1.5"
+    "webmozart/assert": "^1.5",
+    "doctrine/orm": "^2.7"
   },
   "autoload": {
     "psr-4": {

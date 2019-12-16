@@ -2,8 +2,11 @@
 
 namespace Nalgoo\Common\Infrastructure\Persistence;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException as DoctrineUniqueConstraintException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
+use Nalgoo\Common\Infrastructure\Persistence\Exceptions\PersistenceException;
+use Nalgoo\Common\Infrastructure\Persistence\Exceptions\UniqueConstraintViolationException;
 
 class Persister
 {
@@ -22,18 +25,33 @@ class Persister
 	 */
 	public function transaction(callable $func)
 	{
-		/** @noinspection PhpUnhandledExceptionInspection */
-		return $this->entityManager->transactional($func);
+//		/** @noinspection PhpUnhandledExceptionInspection */
+//		return $this->entityManager->transactional($func);
+
+		try {
+			return $this->entityManager->transactional($func);
+
+		} catch (DoctrineUniqueConstraintException $e) {
+			throw new UniqueConstraintViolationException($e->getMessage());
+		} catch (\Throwable $e) {
+			throw new PersistenceException();
+		}
 	}
 
 	/**
-	 * @param null|object|array
-	 * @throws ORMException
-	 * @throws \Doctrine\ORM\OptimisticLockException
+	 * @param object|array
+	 * @throws UniqueConstraintViolationException
+	 * @throws PersistenceException
 	 */
 	public function save($entity)
 	{
-		$this->entityManager->flush($entity);
+		try {
+			$this->entityManager->flush($entity);
+		} catch (DoctrineUniqueConstraintException $e) {
+			throw new UniqueConstraintViolationException($e->getMessage());
+		} catch (\Throwable $e) {
+			throw new PersistenceException();
+		}
 	}
 
 }
