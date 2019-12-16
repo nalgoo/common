@@ -21,35 +21,34 @@ class Persister
 	}
 
 	/**
-	 * @return bool|mixed
+	 * @return mixed
+	 * @throws PersistenceException
+	 * @throws UniqueConstraintViolationException
+	 * @noinspection PhpUnhandledExceptionInspection
+	 * @noinspection PhpDocMissingThrowsInspection
 	 */
 	public function transaction(callable $func)
 	{
-//		/** @noinspection PhpUnhandledExceptionInspection */
-//		return $this->entityManager->transactional($func);
-
 		try {
 			return $this->entityManager->transactional($func);
-
 		} catch (DoctrineUniqueConstraintException $e) {
 			throw new UniqueConstraintViolationException($e->getMessage());
-		} catch (\Throwable $e) {
+		} catch (ORMException $e) {
 			throw new PersistenceException();
 		}
 	}
 
 	/**
-	 * @param object|array
 	 * @throws UniqueConstraintViolationException
 	 * @throws PersistenceException
 	 */
-	public function save($entity)
+	public function flush()
 	{
 		try {
-			$this->entityManager->flush($entity);
+			$this->entityManager->flush();
 		} catch (DoctrineUniqueConstraintException $e) {
 			throw new UniqueConstraintViolationException($e->getMessage());
-		} catch (\Throwable $e) {
+		} catch (ORMException $e) {
 			throw new PersistenceException();
 		}
 	}
