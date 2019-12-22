@@ -5,7 +5,7 @@ namespace Nalgoo\Common\Infrastructure\Persistence\Exceptions;
 
 use Nalgoo\Common\Infrastructure\Persistence\PersistenceException;
 
-class UniqueConstraintViolationException extends PersistenceException
+class ConnectionException extends PersistenceException
 {
 
 }
