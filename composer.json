@@ -19,8 +19,8 @@
     "league/uri": "^6.0",
     "psr/http-message": "^1.0",
     "psr/log": "^1.1",
-    "slim/psr7": "^0.5",
-    "slim/slim": "^4.2",
+    "slim/psr7": "^0.6",
+    "slim/slim": "^4.3",
     "webmozart/assert": "^1.5",
     "doctrine/orm": "^2.7"
   },
