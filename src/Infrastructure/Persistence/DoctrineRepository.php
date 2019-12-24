@@ -95,6 +95,19 @@ abstract class DoctrineRepository
 		}
 	}
 
+	/**
+	 * @throws Exceptions\ConnectionException
+	 * @throws PersistenceException
+	 */
+	protected function remove(object $entity)
+	{
+		try {
+			$this->entityManager->remove($entity);
+		} catch (\Throwable $e) {
+			throw PersistenceException::from($e);
+		}
+	}
+
 	// todo:
 
 	protected function queryDql(string $dql, array $params = [], ?int $limit = null, int $offset = 0): array
