@@ -18,8 +18,7 @@ class PersistenceException extends \Exception
 				return new Exceptions\UniqueConstraintViolationException();
 
 			default:
-				new self();
-
+				return new self();
 		}
 	}
 }
