@@ -2,7 +2,7 @@
 
 namespace Nalgoo\Common\Domain\Enums;
 
-class IntEnum extends Enum
+abstract class IntEnum extends Enum
 {
 	public function __construct(int $value)
 	{
