@@ -12,7 +12,7 @@ abstract class NullableStringEnum extends Enum
 
 	protected static function getConstants(): array
 	{
-		return array_merge(parent::getConstants(), null);
+		return array_merge(parent::getConstants(), [null]);
 	}
 
 	public static function fromString(?string $value)
