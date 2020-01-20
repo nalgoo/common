@@ -1,6 +1,6 @@
 <?php
 
-namespace Nalgoo\Common\Domain;
+namespace Nalgoo\Common\Domain\Enums;
 
 class IntEnum extends Enum
 {

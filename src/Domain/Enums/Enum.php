@@ -1,6 +1,6 @@
 <?php
 
-namespace Nalgoo\Common\Domain;
+namespace Nalgoo\Common\Domain\Enums;
 
 use Webmozart\Assert\Assert;
 
@@ -17,7 +17,6 @@ abstract class Enum
 
 	protected static function getConstants(): array
 	{
-		/** @noinspection PhpUnhandledExceptionInspection */
 		$reflection = new \ReflectionClass(static::class);
 
 		return array_values($reflection->getConstants());

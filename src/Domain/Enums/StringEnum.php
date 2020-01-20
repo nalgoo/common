@@ -1,6 +1,6 @@
 <?php
 
-namespace Nalgoo\Common\Domain;
+namespace Nalgoo\Common\Domain\Enums;
 
 abstract class StringEnum extends Enum
 {
