@@ -17,8 +17,20 @@ class ReverseProxyMiddleware implements MiddlewareInterface
 		if ($request->hasHeader('X-Forwarded-Proto')) {
 			$protocol = $request->getHeaderLine('X-Forwarded-Proto');
 
-			if ($protocol === 'https') {
+			if (in_array($protocol, ['http', 'https'])) {
 				$uri = $uri->withScheme($protocol);
+			}
+		}
+
+		if ($request->hasHeader('X-Forwarded-Host')) {
+			$hostHeader = $request->getHeaderLine('X-Forwarded-Host');
+
+			if (preg_match('^(?P<host>[a-z0-9\.\-]+)(?::(?P<port>[0-9]+))?$/i', $hostHeader, $matches)) {
+				$uri = $uri->withHost($matches['host']);
+
+				if (array_key_exists('port', $matches)) {
+					$uri->withPort((int) $matches['port']);
+				}
 			}
 		}
 
@@ -28,12 +40,6 @@ class ReverseProxyMiddleware implements MiddlewareInterface
 			if (ctype_digit($port)) {
 				$uri = $uri->withPort((int) $port);
 			}
-		}
-
-		if ($request->hasHeader('X-Forwarded-Host')) {
-			$host = $request->getHeaderLine('X-Forwarded-Host');
-
-			$uri = $uri->withHost($host);
 		}
 
 		$request = $request->withUri($uri);
