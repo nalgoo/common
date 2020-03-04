@@ -16,30 +16,15 @@ use Slim\Exception\HttpNotFoundException;
 
 abstract class Action
 {
-	/**
-	 * @var LoggerInterface
-	 */
-	protected $logger;
+	protected LoggerInterface $logger;
 
-	/**
-	 * @var Request
-	 */
-	protected $request;
+	protected Request $request;
 
-	/**
-	 * @var Response
-	 */
-	protected $response;
+	protected Response $response;
 
-	/**
-	 * @var array
-	 */
-	protected $args;
+	protected array $args;
 
-	/**
-	 * @var SerializerInterface
-	 */
-	private $serializer;
+	private SerializerInterface $serializer;
 
 	public function __construct(LoggerInterface $logger, SerializerInterface $serializer)
 	{
@@ -205,5 +190,4 @@ abstract class Action
 
 		return (string) $uri;
 	}
-
 }

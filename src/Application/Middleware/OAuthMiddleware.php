@@ -18,15 +18,9 @@ class OAuthMiddleware implements MiddlewareInterface
 {
 	private const CLASS_NAME_REGEX = '[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*';
 
-	/**
-	 * @var ResourceServer
-	 */
-	private $resourceServer;
+	private ResourceServer $resourceServer;
 
-	/**
-	 * @var string|null
-	 */
-	private $host;
+	private ?string $host;
 
 	public function __construct(ResourceServer $resourceServer)
 	{
@@ -48,10 +42,12 @@ class OAuthMiddleware implements MiddlewareInterface
 				throw new \Exception('Handler does not implements OAuthScopedInterface');
 			}
 
+			/** @var OAuthScopedInterface $handlerClass */
 			$requiredScope = $handlerClass::getRequiredScope();
 
-			$this->resourceServer->validateAuthorization($request, $requiredScope);
+			$token = $this->resourceServer->getValidToken($request, $requiredScope);
 
+			$request = $request->withAttribute('oauth_token', $token);
 		} catch (OAuthException $e) {
 			throw new HttpUnauthorizedException($request, $e->getMessage());
 		}

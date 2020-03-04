@@ -16,20 +16,11 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class ResourceServer
 {
-	/**
-	 * @var CryptKey
-	 */
-	private $publicKey;
+	private CryptKey $publicKey;
 
-	/**
-	 * @var ClockService
-	 */
-	private $clockService;
+	private ClockService $clockService;
 
-	/**
-	 * @var ResourceServerConfig
-	 */
-	private $config;
+	private ResourceServerConfig $config;
 
 	public function __construct(CryptKey $publicKey, ClockService $clockService, ResourceServerConfig $config)
 	{
@@ -43,13 +34,15 @@ class ResourceServer
 	 * @throws OAuthAudienceException
 	 * @throws OAuthScopeException
 	 */
-	public function validateAuthorization(ServerRequestInterface $request, ScopeInterface $requiredScopeName)
+	public function getValidToken(ServerRequestInterface $request, ScopeInterface $requiredScopeName): Token
 	{
 		$token = $this->validateToken($request);
 
 		$this->validateAudience($token);
 
 		$this->validateScope($token, $requiredScopeName);
+
+		return $token;
 	}
 
 	/**
