@@ -5,20 +5,11 @@ namespace Nalgoo\Common\Infrastructure\OAuth;
 
 class ResourceServerConfig
 {
-	/**
-	 * @var string
-	 */
-	private $host;
+	private string $host;
 
-	/**
-	 * @var bool
-	 */
-	private $secure;
+	private bool $secure;
 
-	/**
-	 * @var string
-	 */
-	private $scopePathPrefix = 'auth';
+	private string $scopePathPrefix = 'auth';
 
 	public function __construct(string $host, bool $secure = true)
 	{

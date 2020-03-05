@@ -34,13 +34,13 @@ class ResourceServer
 	 * @throws OAuthAudienceException
 	 * @throws OAuthScopeException
 	 */
-	public function getValidToken(ServerRequestInterface $request, ScopeInterface $requiredScopeName): Token
+	public function getValidToken(ServerRequestInterface $request, ScopeInterface $requiredScope): Token
 	{
 		$token = $this->validateToken($request);
 
 		$this->validateAudience($token);
 
-		$this->validateScope($token, $requiredScopeName);
+		$this->validateScope($token, $requiredScope);
 
 		return $token;
 	}
@@ -60,17 +60,20 @@ class ResourceServer
 	/**
 	 * @throws OAuthScopeException
 	 */
-	protected function validateScope(Token $token, ScopeInterface $requiredScopeName): bool
+	protected function validateScope(Token $token, ScopeInterface $requiredScope): bool
 	{
-		$requiredScope = $this->config->getScopeBaseUrl() . '/' . $requiredScopeName;
+		$scopes = array_map(
+			fn ($scopeIdentifier) => new Scope($scopeIdentifier),
+			array_filter(explode(' ', $token->getClaim('scope')))
+		);
 
-		$scopes = array_filter(explode(' ', $token->getClaim('scope')));
-
-		if (!in_array($requiredScope, $scopes)) {
-			throw new OAuthScopeException('Token is missing required scope - ' . $requiredScope);
+		foreach ($scopes as $scope) {
+			if ($requiredScope->isSatisfiedBy($scope)) {
+				return true;
+			}
 		}
 
-		return true;
+		throw new OAuthScopeException('Token is missing required scope: ' . $requiredScope->getIdentifier());
 	}
 
 	/**
