@@ -12,7 +12,8 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Exception\HttpForbiddenException;
 use Slim\Exception\HttpUnauthorizedException;
-use Slim\Routing\Route;
+use Slim\Interfaces\RouteInterface;
+use Slim\Routing\RouteContext;
 
 class OAuthMiddleware implements MiddlewareInterface
 {
@@ -73,16 +74,15 @@ class OAuthMiddleware implements MiddlewareInterface
 	 *
 	 * @throws \Exception
 	 */
-	private function getRoute(ServerRequestInterface $request): Route
+	private function getRoute(ServerRequestInterface $request): RouteInterface
 	{
-		/** @var Route $route */
-		$route = $request->getAttribute('route');
+		$route = RouteContext::fromRequest($request)->getRoute();
 
 		if (!$route) {
 			throw new \Exception('Route attribute does not exist. Is routing middleware at the top of stack?');
 		}
 
-		if (!$route instanceof Route) {
+		if (!$route instanceof RouteInterface) {
 			throw new \Exception('Route attribute is not what it seems to be.');
 		}
 
