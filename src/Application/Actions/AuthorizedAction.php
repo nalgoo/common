@@ -5,9 +5,10 @@ namespace Nalgoo\Common\Application\Actions;
 
 use Lcobucci\JWT\Token;
 use Nalgoo\Common\Application\Exceptions\AuthorizationException;
+use Nalgoo\Common\Infrastructure\OAuth\OAuthScopedInterface;
 use Nalgoo\Common\Infrastructure\OAuth\ScopeInterface;
 
-abstract class AuthorizedAction extends Action
+abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 {
 	abstract public static function getRequiredScope(): ScopeInterface;
 
