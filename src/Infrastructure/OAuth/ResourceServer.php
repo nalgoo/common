@@ -107,7 +107,7 @@ class ResourceServer
 		}
 
 		// Ensure access token hasn't expired
-		$data = new ValidationData($this->clockService->getCurrentTime(), 5);
+		$data = new ValidationData($this->clockService->getCurrentTime()->getTimestamp(), 5);
 
 		if ($token->validate($data) === false) {
 			throw new OAuthTokenException('Access token is invalid');
