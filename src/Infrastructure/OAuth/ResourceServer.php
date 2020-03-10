@@ -66,7 +66,7 @@ class ResourceServer
 	{
 		$scopes = array_map(
 			fn ($scopeIdentifier) => new Scope($scopeIdentifier),
-			array_filter(explode(' ', $token->getClaim('scopes')))
+			(array) $token->getClaim('scopes'),
 		);
 
 		foreach ($scopes as $scope) {
