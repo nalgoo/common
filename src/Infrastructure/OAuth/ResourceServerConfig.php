@@ -13,7 +13,7 @@ class ResourceServerConfig
 
 	public function __construct(string $host, bool $secure = true)
 	{
-		$this->host = trim('/', $host);
+		$this->host = trim($host, '/');
 		$this->secure = $secure;
 	}
 
