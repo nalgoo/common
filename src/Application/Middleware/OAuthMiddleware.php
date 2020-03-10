@@ -6,6 +6,8 @@ namespace Nalgoo\Common\Application\Middleware;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthException;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthScopedInterface;
 use Nalgoo\Common\Infrastructure\OAuth\ResourceServer;
+use Nalgoo\Common\Infrastructure\OAuth\ResourceServerConfig;
+use Nalgoo\Common\Infrastructure\OAuth\UriScope;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -34,6 +36,9 @@ class OAuthMiddleware implements MiddlewareInterface
 	 */
 	public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
 	{
+		$config = ResourceServerConfig::fromRequest($request);
+		UriScope::setDefaultResourceServerConfig($config);
+
 		try {
 			$route = $this->getRoute($request);
 

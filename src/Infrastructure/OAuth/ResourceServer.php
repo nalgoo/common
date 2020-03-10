@@ -20,13 +20,10 @@ class ResourceServer
 
 	private ClockService $clockService;
 
-	private ResourceServerConfig $config;
-
-	public function __construct(CryptKey $publicKey, ClockService $clockService, ResourceServerConfig $config)
+	public function __construct(CryptKey $publicKey, ClockService $clockService)
 	{
 		$this->publicKey = $publicKey;
 		$this->clockService = $clockService;
-		$this->config = $config;
 	}
 
 	/**
@@ -38,25 +35,9 @@ class ResourceServer
 	{
 		$token = $this->validateToken($request);
 
-		// this is disabled, because audience claim is set to clientId by library
-		// https://github.com/thephpleague/oauth2-server/issues/857
-		// $this->validateAudience($token);
-
 		$this->validateScope($token, $requiredScope);
 
 		return $token;
-	}
-
-	/**
-	 * @throws OAuthAudienceException
-	 */
-	protected function validateAudience(Token $token): bool
-	{
-		if ($token->getClaim('aud') !== $this->config->getAudience()) {
-			throw new OAuthAudienceException();
-		}
-
-		return true;
 	}
 
 	/**

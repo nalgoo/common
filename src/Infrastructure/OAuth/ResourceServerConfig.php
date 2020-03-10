@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Infrastructure\OAuth;
 
+use Psr\Http\Message\RequestInterface;
+
 class ResourceServerConfig
 {
 	private string $host;
@@ -15,6 +17,11 @@ class ResourceServerConfig
 	{
 		$this->host = trim($host, '/');
 		$this->secure = $secure;
+	}
+
+	public static function fromRequest(RequestInterface $request)
+	{
+		return new static($request->getUri()->getHost(), $request->getUri()->getScheme() === 'https');
 	}
 
 	public function setScopePathPrefix(string $path)

@@ -29,7 +29,7 @@ class ReverseProxyMiddleware implements MiddlewareInterface
 				$uri = $uri->withHost($matches['host']);
 
 				if (array_key_exists('port', $matches)) {
-					$uri->withPort((int) $matches['port']);
+					$uri = $uri->withPort((int) $matches['port']);
 				}
 			}
 		}
