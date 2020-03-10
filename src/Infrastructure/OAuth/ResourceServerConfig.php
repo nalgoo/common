@@ -22,6 +22,9 @@ class ResourceServerConfig
 		$this->scopePathPrefix = trim('/', $path);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function getAudience(): string
 	{
 		return $this->getHost();

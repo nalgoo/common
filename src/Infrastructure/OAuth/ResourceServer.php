@@ -38,7 +38,9 @@ class ResourceServer
 	{
 		$token = $this->validateToken($request);
 
-		$this->validateAudience($token);
+		// this is disabled, because audience claim is set to clientId by library
+		// https://github.com/thephpleague/oauth2-server/issues/857
+		// $this->validateAudience($token);
 
 		$this->validateScope($token, $requiredScope);
 
