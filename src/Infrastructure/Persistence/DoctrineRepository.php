@@ -110,7 +110,10 @@ abstract class DoctrineRepository
 
 	// todo:
 
-	protected function queryDql(string $dql, array $params = [], ?int $limit = null, int $offset = 0): array
+	/**
+	 * @return mixed
+	 */
+	protected function queryDql(string $dql, array $params = [], ?int $limit = null, int $offset = 0)
 	{
 		$query = $this->entityManager->createQuery($dql);
 
