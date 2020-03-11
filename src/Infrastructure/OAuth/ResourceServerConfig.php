@@ -11,17 +11,24 @@ class ResourceServerConfig
 
 	private bool $secure;
 
+	private ?int $port;
+
 	private string $scopePathPrefix = 'auth';
 
-	public function __construct(string $host, bool $secure = true)
+	public function __construct(string $hostName, bool $secure = true, ?int $port = null)
 	{
-		$this->host = trim($host, '/');
+		$this->host = trim($hostName, '/');
 		$this->secure = $secure;
+		$this->port = $port;
 	}
 
 	public static function fromRequest(RequestInterface $request)
 	{
-		return new static($request->getUri()->getHost(), $request->getUri()->getScheme() === 'https');
+		return new static(
+			$request->getUri()->getHost(),
+			$request->getUri()->getScheme() === 'https',
+			$request->getUri()->getPort()
+		);
 	}
 
 	public function setScopePathPrefix(string $path)
@@ -29,22 +36,18 @@ class ResourceServerConfig
 		$this->scopePathPrefix = trim('/', $path);
 	}
 
-	/**
-	 * @deprecated
-	 */
-	public function getAudience(): string
-	{
-		return $this->getHost();
-	}
-
 	public function getScopeBaseUrl(): string
 	{
-		return $this->getHost() . '/' . $this->scopePathPrefix;
+		return $this->getSchemeAndAuthority() . '/' . $this->scopePathPrefix;
 	}
 
-	private function getHost(): string
+	private function getSchemeAndAuthority(): string
 	{
-		return ($this->secure ? 'https' : 'http') . '://' . $this->host;
+		$portString = (($this->port != 80 && !$this->secure) || $this->port != 443 && $this->secure)
+			? ':' . $this->port
+			: '';
+
+		return ($this->secure ? 'https' : 'http') . '://' . $this->host . $portString;
 	}
 
 }

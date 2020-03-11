@@ -23,8 +23,6 @@ class OAuthMiddleware implements MiddlewareInterface
 
 	private ResourceServer $resourceServer;
 
-	private ?string $host;
-
 	public function __construct(ResourceServer $resourceServer)
 	{
 		$this->resourceServer = $resourceServer;
