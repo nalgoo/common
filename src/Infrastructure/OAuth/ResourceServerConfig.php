@@ -43,11 +43,10 @@ class ResourceServerConfig
 
 	private function getSchemeAndAuthority(): string
 	{
-		$portString = (($this->port != 80 && !$this->secure) || $this->port != 443 && $this->secure)
-			? ':' . $this->port
-			: '';
-
-		return ($this->secure ? 'https' : 'http') . '://' . $this->host . $portString;
+		return ($this->secure ? 'https' : 'http')
+			. '://'
+			. $this->host
+			. ($this->port ? (':' . strval($this->port)) : '');
 	}
 
 }
