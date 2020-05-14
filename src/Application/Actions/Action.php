@@ -6,6 +6,8 @@ namespace Nalgoo\Common\Application\Actions;
 use League\Uri\Http;
 use Nalgoo\Common\Application\Exceptions\DeserializeException;
 use Nalgoo\Common\Application\Interfaces\SerializerInterface;
+use Nalgoo\Common\Application\Interfaces\UrlResolverInterface;
+use Nalgoo\Common\Application\Resolvers\UrlResolver;
 use Nalgoo\Common\Application\Response\StatusCode;
 use Nalgoo\Common\Domain\Exceptions\DomainRecordNotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -26,6 +28,8 @@ abstract class Action
 
 	private SerializerInterface $serializer;
 
+	protected UrlResolverInterface $urlResolver;
+
 	public function __construct(LoggerInterface $logger, SerializerInterface $serializer)
 	{
 		$this->logger = $logger;
@@ -45,6 +49,8 @@ abstract class Action
 		$this->request = $request;
 		$this->response = $response;
 		$this->args = $args;
+
+		$this->urlResolver = new UrlResolver($request);
 
 		try {
 			return $this->action();
@@ -180,14 +186,8 @@ abstract class Action
 	/**
 	 * Creates URI with given path (either absolute or relative) based on request's base URL
 	 */
-	protected function resolveUri(string $path, array $queryParams = []): string
+	protected function resolveUrl(string $path, array $queryParams = []): string
 	{
-		$uri = Http::createFromBaseUri($path, $this->request->getUri());
-
-		if ($queryParams) {
-			$uri = $uri->withQuery(http_build_query($queryParams, '', '&', PHP_QUERY_RFC3986));
-		}
-
-		return (string) $uri;
+		return $this->urlResolver->resolveUrl($path, $queryParams);
 	}
 }
