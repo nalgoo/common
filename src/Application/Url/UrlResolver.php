@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Nalgoo\Common\Application\Resolvers;
+namespace Nalgoo\Common\Application\Url;
 
 use League\Uri\Http;
 use Nalgoo\Common\Application\Interfaces\UrlResolverInterface;

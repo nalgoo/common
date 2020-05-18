@@ -7,7 +7,8 @@ use League\Uri\Http;
 use Nalgoo\Common\Application\Exceptions\DeserializeException;
 use Nalgoo\Common\Application\Interfaces\SerializerInterface;
 use Nalgoo\Common\Application\Interfaces\UrlResolverInterface;
-use Nalgoo\Common\Application\Resolvers\UrlResolver;
+use Nalgoo\Common\Application\Url\Url;
+use Nalgoo\Common\Application\Url\UrlResolver;
 use Nalgoo\Common\Application\Response\StatusCode;
 use Nalgoo\Common\Domain\Exceptions\DomainRecordNotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -51,6 +52,8 @@ abstract class Action
 		$this->args = $args;
 
 		$this->urlResolver = new UrlResolver($request);
+
+		Url::setUrlResolver($this->urlResolver);
 
 		try {
 			return $this->action();
