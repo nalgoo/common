@@ -5,7 +5,7 @@ namespace Nalgoo\Common\Application\Url;
 
 use Nalgoo\Common\Application\Interfaces\UrlResolverInterface;
 
-class Url
+class Url implements \JsonSerializable
 {
 	private static UrlResolverInterface $urlResolver;
 
@@ -19,15 +19,6 @@ class Url
 		$this->queryParams = $queryParams;
 	}
 
-	public function __toString(): string
-	{
-		if (!self::$urlResolver) {
-			throw new \RuntimeException('UrlResolver not initialized, need to call setUrlResolver() first');
-		}
-
-		return self::$urlResolver->resolveUrl($this->path, $this->queryParams);
-	}
-
 	public static function setUrlResolver(UrlResolverInterface $urlResolver)
 	{
 		self::$urlResolver = $urlResolver;
@@ -37,4 +28,26 @@ class Url
 	{
 		return new self($path, $queryParams);
 	}
+
+	public function asString(): string
+	{
+		if (!self::$urlResolver) {
+			throw new \RuntimeException('UrlResolver not initialized, need to call setUrlResolver() first');
+		}
+
+		return self::$urlResolver->resolveUrl($this->path, $this->queryParams);
+	}
+
+	public function __toString(): string
+	{
+		return $this->asString();
+	}
+
+	public function jsonSerialize()
+	{
+		return $this->asString();
+	}
+
+
+
 }
