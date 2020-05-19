@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\Actions;
 
-use League\Uri\Http;
 use Nalgoo\Common\Application\Exceptions\DeserializeException;
+use Nalgoo\Common\Application\Interfaces\ActionFactoryInterface;
 use Nalgoo\Common\Application\Interfaces\SerializerInterface;
 use Nalgoo\Common\Application\Interfaces\UrlResolverInterface;
-use Nalgoo\Common\Application\Url\Url;
-use Nalgoo\Common\Application\Url\UrlResolver;
 use Nalgoo\Common\Application\Response\StatusCode;
 use Nalgoo\Common\Domain\Exceptions\DomainRecordNotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -19,6 +17,8 @@ use Slim\Exception\HttpNotFoundException;
 
 abstract class Action
 {
+	protected ActionFactoryInterface $factory;
+
 	protected LoggerInterface $logger;
 
 	protected Request $request;
@@ -27,33 +27,20 @@ abstract class Action
 
 	protected array $args;
 
-	private SerializerInterface $serializer;
-
-	protected UrlResolverInterface $urlResolver;
-
-	public function __construct(LoggerInterface $logger, SerializerInterface $serializer)
-	{
+	public function __construct(ActionFactoryInterface $factory, LoggerInterface $logger) {
+		$this->factory = $factory;
 		$this->logger = $logger;
-		$this->serializer = $serializer;
 	}
 
 	/**
-	 * @param Request  $request
-	 * @param Response $response
-	 * @param array    $args
-	 * @return Response
 	 * @throws HttpNotFoundException
 	 * @throws HttpBadRequestException
 	 */
-	public function __invoke(Request $request, Response $response, $args): Response
+	public function __invoke(Request $request, Response $response, array $args): Response
 	{
 		$this->request = $request;
 		$this->response = $response;
 		$this->args = $args;
-
-		$this->urlResolver = new UrlResolver($request);
-
-		Url::setUrlResolver($this->urlResolver);
 
 		try {
 			return $this->action();
@@ -109,7 +96,7 @@ abstract class Action
 	protected function deserializeBody(string $className): object
 	{
 		try {
-			return $this->serializer->deserialize(
+			return $this->getSerializer()->deserialize(
 				$this->request->getBody()->getContents(),
 				$className
 			);
@@ -152,7 +139,7 @@ abstract class Action
 
 	protected function respondWithJson($data, int $statusCode = 200): Response
 	{
-		$json = $this->serializer->serialize($data);
+		$json = $this->getSerializer()->serialize($data);
 
 		$this->response->getBody()->write($json);
 
@@ -191,6 +178,16 @@ abstract class Action
 	 */
 	protected function resolveUrl(string $path, array $queryParams = []): string
 	{
-		return $this->urlResolver->resolveUrl($path, $queryParams);
+		return $this->getUrlResolver()->resolveUrl($path, $queryParams);
+	}
+
+	protected function getUrlResolver(): UrlResolverInterface
+	{
+		return $this->factory->getUrlResolver($this->request);
+	}
+
+	protected function getSerializer(): SerializerInterface
+	{
+		return $this->factory->getSerializer($this->request);
 	}
 }
