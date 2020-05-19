@@ -27,9 +27,9 @@ abstract class Action
 
 	protected array $args;
 
-	public function __construct(ActionFactoryInterface $factory, LoggerInterface $logger) {
+	public function __construct(ActionFactoryInterface $factory) {
 		$this->factory = $factory;
-		$this->logger = $logger;
+		$this->logger = $factory->getLogger();
 	}
 
 	/**
