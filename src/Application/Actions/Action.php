@@ -17,7 +17,7 @@ use Slim\Exception\HttpNotFoundException;
 
 abstract class Action
 {
-	protected ActionFactoryInterface $factory;
+	protected ActionFactoryInterface $actionFactory;
 
 	protected LoggerInterface $logger;
 
@@ -27,9 +27,9 @@ abstract class Action
 
 	protected array $args;
 
-	public function __construct(ActionFactoryInterface $factory) {
-		$this->factory = $factory;
-		$this->logger = $factory->getLogger();
+	public function __construct(ActionFactoryInterface $actionFactory) {
+		$this->actionFactory = $actionFactory;
+		$this->logger = $actionFactory->getLogger();
 	}
 
 	/**
@@ -183,11 +183,11 @@ abstract class Action
 
 	protected function getUrlResolver(): UrlResolverInterface
 	{
-		return $this->factory->getUrlResolver($this->request);
+		return $this->actionFactory->getUrlResolver($this->request);
 	}
 
 	protected function getSerializer(): SerializerInterface
 	{
-		return $this->factory->getSerializer($this->request);
+		return $this->actionFactory->getSerializer($this->request);
 	}
 }
