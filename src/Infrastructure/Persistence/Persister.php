@@ -5,7 +5,6 @@ namespace Nalgoo\Common\Infrastructure\Persistence;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException as DoctrineUniqueConstraintException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
-use Nalgoo\Common\Infrastructure\Persistence\Exceptions\PersistenceException;
 use Nalgoo\Common\Infrastructure\Persistence\Exceptions\UniqueConstraintViolationException;
 
 class Persister
