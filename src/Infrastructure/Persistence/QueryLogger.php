@@ -54,14 +54,24 @@ class QueryLogger implements SQLLogger
 
 	public function stopQuery()
 	{
-		$this->logger->log(
-			$this->logLevel,
-			sprintf('SQL Query %s with params %s executed in %.3fs',
-				$this->sql,
-				json_encode($this->params),
-				microtime(true) - $this->start
-			)
-		);
+		$duration = microtime(true) - $this->start;
+
+		if (is_null($this->params)) {
+			$this->logger->log($this->logLevel, sprintf('SQL Query %s executed in %.3fs', $this->sql, $duration));
+		} else {
+			$params = array_map(function ($var) {
+				return is_resource($var) ? '[RESOURCE]' : $var;
+			}, $this->params);
+
+			$this->logger->log(
+				$this->logLevel,
+				sprintf('SQL Query %s with params %s executed in %.3fs',
+					$this->sql,
+					json_encode($params),
+					microtime(true) - $this->start
+				)
+			);
+		}
 	}
 
 }
