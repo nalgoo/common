@@ -60,7 +60,7 @@ class QueryLogger implements SQLLogger
 			$this->logger->log($this->logLevel, sprintf('SQL Query %s executed in %.3fs', $this->sql, $duration));
 		} else {
 			$params = array_map(function ($var) {
-				return is_resource($var) ? '[RESOURCE]' : $var;
+				return is_resource($var) ? '__RESOURCE__' : $var;
 			}, $this->params);
 
 			$this->logger->log(
