@@ -14,7 +14,7 @@ abstract class IntEnum extends Enum
 		return new static($value);
 	}
 
-	public function asInt(): string
+	public function asInt(): int
 	{
 		return $this->value;
 	}
