@@ -13,16 +13,16 @@
     "php": "^7.4 || ^ 8.0",
     "ext-json": "*",
     "ext-pdo":"*",
-    "doctrine/dbal": "^2.10",
+    "doctrine/dbal": "^3.0.0",
     "doctrine/event-manager": "^1.1",
-    "doctrine/orm": "^2.7",
-    "league/oauth2-server": "^8.0",
-    "league/uri": "^6.0",
+    "doctrine/orm": "^2.8.1",
+    "league/oauth2-server": "^8.2.4",
+    "league/uri": "^6.4.0",
     "psr/http-message": "^1.0",
     "psr/log": "^1.1",
-    "slim/psr7": "^1.1",
-    "slim/slim": "^4.5",
-    "webmozart/assert": "^1.6"
+    "slim/psr7": "^1.3.0",
+    "slim/slim": "^4.7.1",
+    "webmozart/assert": "^1.9.1"
   },
   "autoload": {
     "psr-4": {
