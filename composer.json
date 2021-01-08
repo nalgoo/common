@@ -13,7 +13,7 @@
     "php": "^7.4 || ^8.0",
     "ext-json": "*",
     "ext-pdo":"*",
-    "doctrine/dbal": "^3.0.0",
+    "doctrine/dbal": "^2.12.1",
     "doctrine/event-manager": "^1.1",
     "doctrine/orm": "^2.8.1",
     "league/oauth2-server": "^8.2.4",
