@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace Nalgoo\Common\Infrastructure\OAuth;
 
 use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\ValidationData;
-use League\OAuth2\Server\CryptKey;
 use Nalgoo\Common\Infrastructure\Clock\ClockService;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthAudienceException;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthScopeException;
@@ -16,11 +16,11 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class ResourceServer
 {
-	private CryptKey $publicKey;
+	private Key $publicKey;
 
 	private ClockService $clockService;
 
-	public function __construct(CryptKey $publicKey, ClockService $clockService)
+	public function __construct(Key $publicKey, ClockService $clockService)
 	{
 		$this->publicKey = $publicKey;
 		$this->clockService = $clockService;
@@ -82,7 +82,7 @@ class ResourceServer
 		}
 
 		try {
-			if ($token->verify(new Sha256(), $this->publicKey->getKeyPath()) === false) {
+			if ($token->verify(new Sha256(), $this->publicKey) === false) {
 				throw new OAuthTokenException('Access token could not be verified');
 			}
 		} catch (\BadMethodCallException $exception) {

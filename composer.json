@@ -15,7 +15,6 @@
     "doctrine/dbal": "^2.12.1",
     "doctrine/event-manager": "^1.1.1",
     "doctrine/orm": "^2.8.1",
-    "league/oauth2-server": "^8.2.4",
     "league/uri": "^6.4.0",
     "psr/http-message": "^1.0",
     "psr/log": "^1.1",
