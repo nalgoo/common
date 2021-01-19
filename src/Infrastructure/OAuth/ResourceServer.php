@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Infrastructure\OAuth;
 
-use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Token;
