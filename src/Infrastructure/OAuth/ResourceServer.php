@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Infrastructure\OAuth;
 
+use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
@@ -76,7 +77,7 @@ class ResourceServer
 		// Attempt to parse and validate the JWT
 
 		try {
-			$token = (new Parser())->parse($jwt);
+			$token = (new Parser(new JoseDecoder()))->parse($jwt);
 		} catch (\Throwable $e) {
 			throw new OAuthTokenException('Cannot parse JWT token: ' . $e->getMessage());
 		}
