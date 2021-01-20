@@ -26,10 +26,10 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 			throw new AuthorizationException('Missing authorization token');
 		}
 
-		if (!$token->hasClaim('sub')) {
+		if (!$token->claims()->has('sub')) {
 			throw new AuthorizationException('Missing `sub` claim in token');
 		}
 
-		return $token->getClaim('sub');
+		return $token->claims()->get('sub');
 	}
 }

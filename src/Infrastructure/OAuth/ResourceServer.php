@@ -3,11 +3,16 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Infrastructure\OAuth;
 
+use Lcobucci\Clock\FrozenClock;
+use Lcobucci\Clock\SystemClock;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Token;
+use Lcobucci\JWT\Validation\Constraint\SignedWith;
+use Lcobucci\JWT\Validation\Constraint\ValidAt;
+use Lcobucci\JWT\Validation\Validator;
 use Lcobucci\JWT\ValidationData;
 use Nalgoo\Common\Infrastructure\Clock\ClockService;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthAudienceException;
@@ -48,7 +53,7 @@ class ResourceServer
 	{
 		$scopes = array_map(
 			fn ($scopeIdentifier) => new Scope($scopeIdentifier),
-			(array) $token->getClaim('scopes'),
+			(array) $token->claims()->get('scopes', []),
 		);
 
 		foreach ($scopes as $scope) {
@@ -76,25 +81,22 @@ class ResourceServer
 
 		// Attempt to parse and validate the JWT
 
+		$validator = new Validator();
+
 		try {
 			$token = (new Parser(new JoseEncoder()))->parse($jwt);
 		} catch (\Throwable $e) {
 			throw new OAuthTokenException('Cannot parse JWT token: ' . $e->getMessage());
 		}
 
-		try {
-			if ($token->verify(new Sha256(), $this->publicKey) === false) {
-				throw new OAuthTokenException('Access token could not be verified');
-			}
-		} catch (\BadMethodCallException $exception) {
-			throw new OAuthTokenException('Access token is not signed');
+		if (!$validator->validate($token, new SignedWith(new Sha256(), $this->publicKey))) {
+			throw new OAuthTokenException('Access token signature could not be verified');
 		}
 
-		// Ensure access token hasn't expired
-		$data = new ValidationData($this->clockService->getCurrentTime()->getTimestamp(), 5);
+		$clock = new FrozenClock($this->clockService->getCurrentTime());
 
-		if ($token->validate($data) === false) {
-			throw new OAuthTokenException('Access token is invalid');
+		if (!$validator->validate($token, new ValidAt($clock, new \DateInterval('PT5S')))) {
+			throw new OAuthTokenException('Access token is expired');
 		}
 
 		return $token;
