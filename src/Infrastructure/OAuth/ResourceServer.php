@@ -77,7 +77,7 @@ class ResourceServer
 		// Attempt to parse and validate the JWT
 
 		try {
-			$token = (new Parser(new JoseDecoder()))->parse($jwt);
+			$token = (new Parser(new JoseEncoder()))->parse($jwt);
 		} catch (\Throwable $e) {
 			throw new OAuthTokenException('Cannot parse JWT token: ' . $e->getMessage());
 		}
