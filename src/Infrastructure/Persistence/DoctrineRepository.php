@@ -60,7 +60,7 @@ abstract class DoctrineRepository
 		int $offset = null
 	): array {
 		try {
-			$this->entityManager->getRepository($entityClassName)->findBy($criteria, $orderBy, $limit, $offset);
+			return $this->entityManager->getRepository($entityClassName)->findBy($criteria, $orderBy, $limit, $offset);
 		} catch (\Throwable $e) {
 			throw PersistenceException::from($e);
 		}
