@@ -117,7 +117,7 @@ class OAuthMiddleware implements MiddlewareInterface
 				return $callable;
 			}
 
-			if (preg_match('^('.self::CLASS_NAME_REGEX.')::.+$', $callable, $matches) ) {
+			if (preg_match('/^('.self::CLASS_NAME_REGEX.')::.+$/', $callable, $matches) ) {
 				if (class_exists($matches[1])) {
 					return $matches[1];
 				}
