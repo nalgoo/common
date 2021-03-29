@@ -75,7 +75,7 @@ abstract class DoctrineRepository
 	protected function findOneBy(string $entityClassName, array $criteria, ?array $orderBy = null): ?object
 	{
 		try {
-			$this->entityManager->getRepository($entityClassName)->findOneBy($criteria, $orderBy);
+			return $this->entityManager->getRepository($entityClassName)->findOneBy($criteria, $orderBy);
 		} catch (\Throwable $e) {
 			throw PersistenceException::from($e);
 		}
