@@ -19,6 +19,22 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 	 */
 	protected function getAuthorizedUserId(): string
 	{
+		$token = $this->getToken();
+
+		if (!$token->claims()->has('sub')) {
+			throw new AuthorizationException('Missing `sub` claim in token');
+		}
+
+		return $token->claims()->get('sub');
+	}
+
+	protected function getRequestedScopes(): array
+	{
+		return $this->getToken()->claims()->get('scopes', []);
+	}
+
+	private function getToken(): Token
+	{
 		/** @var Token $token */
 		$token = $this->request->getAttribute('oauth_token');
 
@@ -26,10 +42,6 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 			throw new AuthorizationException('Missing authorization token');
 		}
 
-		if (!$token->claims()->has('sub')) {
-			throw new AuthorizationException('Missing `sub` claim in token');
-		}
-
-		return $token->claims()->get('sub');
+		return $token;
 	}
 }
