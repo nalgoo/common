@@ -101,7 +101,11 @@ abstract class Action
 				$className
 			);
 		} catch (DeserializeException $e) {
-			throw new HttpBadRequestException($this->request, 'Incorrect or missing input data');
+			throw new HttpBadRequestException(
+				$this->request,
+				'Incorrect or missing input data: ' . $e->getMessage(),
+				$e
+			);
 		}
 	}
 
