@@ -13,7 +13,7 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 	abstract public static function getRequiredScope(): ScopeInterface;
 
 	/**
-	 * Return "sub" claim from oAuth token or null, if token or claim not present
+	 * Return "sub" claim from oAuth token or throw AuthorizationException if not set or empty
 	 *
 	 * @throws AuthorizationException
 	 */
@@ -25,7 +25,13 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 			throw new AuthorizationException('Missing `sub` claim in token');
 		}
 
-		return $token->claims()->get('sub');
+		$sub = $token->claims()->get('sub');
+
+		if ($sub === '') {
+			throw new AuthorizationException('Empty `sub` claim in token');
+		}
+
+		return $sub;
 	}
 
 	protected function getRequestedScopes(): array
