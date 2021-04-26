@@ -2,7 +2,7 @@
 
 namespace Nalgoo\Common\Domain\Enums;
 
-abstract class StringEnum extends Enum implements StringEnumInterface
+abstract class StringEnum extends Enum implements StringEnumInterface, \Stringable
 {
 	public function __construct(string $value)
 	{
@@ -14,9 +14,21 @@ abstract class StringEnum extends Enum implements StringEnumInterface
 		return new static($value);
 	}
 
-	public function asString(): string
+	public function toString(): string
 	{
 		return $this->value;
 	}
 
+	/**
+	 * @deprecated Deprecated because of naming consistency, use toString() instead
+	 */
+	public function asString(): string
+	{
+		return $this->toString();
+	}
+
+	public function __toString(): string
+	{
+		return $this->toString();
+	}
 }
