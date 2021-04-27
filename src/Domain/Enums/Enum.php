@@ -8,8 +8,6 @@ abstract class Enum
 {
 	protected mixed $value;
 
-	protected static array $instances = [];
-
 	private function __construct($value)
 	{
 		Assert::oneOf($value, static::getConstants());
@@ -26,10 +24,12 @@ abstract class Enum
 
 	protected static function getInstanceFor($value): static
 	{
-		if (!isset(static::$instances[$value])) {
-			static::$instances[$value] = new static($value);
+		static $instances = [];
+
+		if (!isset($instances[$value])) {
+			$instances[$value] = new static($value);
 		}
 
-		return static::$instances[$value];
+		return $instances[$value];
 	}
 }
