@@ -8,7 +8,7 @@ namespace Nalgoo\Common\Domain\Enums;
  */
 abstract class NullableStringEnum extends Enum
 {
-	public function __construct(?string $value)
+	protected function __construct(?string $value)
 	{
 		parent::__construct($value);
 	}

@@ -4,14 +4,9 @@ namespace Nalgoo\Common\Domain\Enums;
 
 abstract class StringEnum extends Enum implements StringEnumInterface, \Stringable
 {
-	public function __construct(string $value)
-	{
-		parent::__construct($value);
-	}
-
 	public static function fromString(string $value): static
 	{
-		return new static($value);
+		return static::getInstanceFor($value);
 	}
 
 	public function toString(): string
