@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Domain;
 
-class IntegerIdentifier
+class IntegerIdentifier implements IntValueInterface
 {
 	private int $id;
 
@@ -12,18 +12,19 @@ class IntegerIdentifier
 		$this->id = $id;
 	}
 
-	public static function fromInt(int $id): static
+    /** @noinspection PhpParameterNameChangedDuringInheritanceInspection */
+    public static function fromInt(int $id): static
 	{
 		return new static($id);
 	}
 
-	public function asInt(): int
+	public function toInt(): int
 	{
 		return $this->id;
 	}
 
     public function sameAs(IntegerIdentifier $identifier): bool
     {
-        return get_class($this) === get_class($identifier) && $this->id === $identifier->asInt();
+        return get_class($this) === get_class($identifier) && $this->id === $identifier->toInt();
     }
 }
