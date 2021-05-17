@@ -2,7 +2,9 @@
 
 namespace Nalgoo\Common\Domain\Enums;
 
-abstract class IntEnum extends Enum implements IntEnumInterface
+use Nalgoo\Common\Domain\IntValueInterface;
+
+abstract class IntEnum extends Enum implements IntValueInterface
 {
 	public static function fromInt(int $value): static
     {

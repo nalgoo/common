@@ -2,7 +2,9 @@
 
 namespace Nalgoo\Common\Domain\Enums;
 
-abstract class StringEnum extends Enum implements StringEnumInterface, \Stringable
+use Nalgoo\Common\Domain\StringValueInterface;
+
+abstract class StringEnum extends Enum implements StringValueInterface, \Stringable
 {
 	public static function fromString(string $value): static
 	{
