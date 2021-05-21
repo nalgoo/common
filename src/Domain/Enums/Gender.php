@@ -94,6 +94,14 @@ class Gender extends Enum implements IntValueInterface, StringValueInterface
     /**
      * @throws DomainLogicException
      */
+    public function __toString () : string
+    {
+        return $this->toString();
+    }
+
+    /**
+     * @throws DomainLogicException
+     */
     public function toBool(): bool
 	{
         if ($this->isMale()) {
