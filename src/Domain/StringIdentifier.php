@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Domain;
 
-class StringIdentifier implements StringValueInterface
+class StringIdentifier extends StringValue implements StringValueInterface, \Stringable
 {
 	private string $id;
 
