@@ -12,9 +12,9 @@ use Psr\Log\LoggerInterface;
 
 abstract class ActionFactory implements ActionFactoryInterface
 {
-    private ContainerInterface $container;
+    protected ContainerInterface $container;
 
-    private array $urlResolvers = [];
+    protected array $urlResolvers = [];
 
     public function __construct(ContainerInterface $container)
     {
