@@ -34,12 +34,18 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 		return $sub;
 	}
 
-	protected function getRequestedScopes(): array
+    /**
+     * @throws AuthorizationException
+     */
+    protected function getRequestedScopes(): array
 	{
 		return $this->getToken()->claims()->get('scopes', []);
 	}
 
-	private function getToken(): Token
+    /**
+     * @throws AuthorizationException
+     */
+    private function getToken(): Token
 	{
 		/** @var Token $token */
 		$token = $this->request->getAttribute('oauth_token');

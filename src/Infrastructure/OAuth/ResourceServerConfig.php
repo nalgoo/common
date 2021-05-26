@@ -22,7 +22,7 @@ class ResourceServerConfig
 		$this->port = $port;
 	}
 
-	public static function fromRequest(RequestInterface $request)
+	public static function fromRequest(RequestInterface $request): static
 	{
 		return new static(
 			$request->getUri()->getHost(),

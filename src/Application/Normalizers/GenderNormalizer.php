@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nalgoo\Common\Application\Normalizers;
 
 use Nalgoo\Common\Domain\Enums\Gender;
+use Nalgoo\Common\Domain\Exceptions\DomainLogicException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -12,7 +13,7 @@ class GenderNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     /**
      * @TODO int, bool, and regular text support
-     * @throws \Nalgoo\Common\Domain\Exceptions\DomainLogicException
+     * @throws DomainLogicException
      */
     public function normalize($object, string $format = null, array $context = []): string
     {

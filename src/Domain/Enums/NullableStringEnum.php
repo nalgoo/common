@@ -8,19 +8,14 @@ namespace Nalgoo\Common\Domain\Enums;
  */
 abstract class NullableStringEnum extends Enum
 {
-	protected function __construct(?string $value)
-	{
-		parent::__construct($value);
-	}
-
 	protected static function getConstants(): array
 	{
 		return array_merge(parent::getConstants(), [null]);
 	}
 
-	public static function fromString(?string $value)
+	public static function fromString(?string $value): static
 	{
-		return new static($value);
+		return static::getInstanceFor($value);
 	}
 
 	public function asString(): ?string

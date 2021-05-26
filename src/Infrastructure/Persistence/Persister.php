@@ -9,10 +9,7 @@ use Nalgoo\Common\Infrastructure\Persistence\Exceptions\UniqueConstraintViolatio
 
 class Persister
 {
-	/**
-	 * @var EntityManager
-	 */
-	private $entityManager;
+	private EntityManager $entityManager;
 
 	public function __construct(EntityManager $entityManager)
 	{
@@ -32,7 +29,7 @@ class Persister
 			return $this->entityManager->transactional($func);
 		} catch (DoctrineUniqueConstraintException $e) {
 			throw new UniqueConstraintViolationException($e->getMessage());
-		} catch (ORMException $e) {
+		} catch (ORMException) {
 			throw new PersistenceException();
 		}
 	}
@@ -47,7 +44,7 @@ class Persister
 			$this->entityManager->flush();
 		} catch (DoctrineUniqueConstraintException $e) {
 			throw new UniqueConstraintViolationException($e->getMessage());
-		} catch (ORMException $e) {
+		} catch (ORMException) {
 			throw new PersistenceException();
 		}
 	}

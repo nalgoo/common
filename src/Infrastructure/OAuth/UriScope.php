@@ -50,9 +50,7 @@ class UriScope implements ScopeInterface
 			throw new \RuntimeException('ResourceServerConfig not set, call self::setDefaultResourceServerConfig() first');
 		}
 
-		$scope = new self($path, self::$defaultResourceServerConfig);
-
-		return $scope;
+        return new self($path, self::$defaultResourceServerConfig);
 	}
 
 	public function getIdentifier(): string
@@ -60,9 +58,9 @@ class UriScope implements ScopeInterface
 		return $this->resourceServerConfig->getScopeBaseUrl() . '/' . $this->path;
 	}
 
-	public function isSatisfiedBy(ScopeInterface $testedScope): bool
+	public function isSatisfiedBy(ScopeInterface $scope): bool
 	{
-		$testedScopeIdentifier = trim($testedScope->getIdentifier(), '/');
+		$testedScopeIdentifier = trim($scope->getIdentifier(), '/');
 
 		// scope must begin with http(s)://
 		if (!preg_match('/^https?:\/\//', $testedScopeIdentifier)) {
@@ -74,7 +72,7 @@ class UriScope implements ScopeInterface
 			return true;
 		}
 
-		if ($testedScopeIdentifier === substr($this->getIdentifier(), 0, strlen($testedScopeIdentifier))) {
+		if (str_starts_with($this->getIdentifier(), $testedScopeIdentifier)) {
 			if (in_array(substr($this->getIdentifier(), strlen($testedScopeIdentifier), 1), ['.', '/'])) {
 				return true;
 			}

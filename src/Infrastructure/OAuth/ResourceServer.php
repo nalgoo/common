@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Nalgoo\Common\Infrastructure\OAuth;
 
 use Lcobucci\Clock\FrozenClock;
-use Lcobucci\Clock\SystemClock;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\Signer\Key;
@@ -13,7 +12,6 @@ use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\Constraint\ValidAt;
 use Lcobucci\JWT\Validation\Validator;
-use Lcobucci\JWT\ValidationData;
 use Nalgoo\Common\Infrastructure\Clock\ClockService;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthAudienceException;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthScopeException;

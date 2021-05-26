@@ -5,10 +5,7 @@ namespace Nalgoo\Common\Infrastructure\OAuth;
 
 class Scope implements ScopeInterface
 {
-	/**
-	 * @var string
-	 */
-	private $identifier;
+	private string $identifier;
 
 	public function __construct(string $identifier)
 	{
