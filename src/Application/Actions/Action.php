@@ -50,19 +50,16 @@ abstract class Action
 	}
 
 	/**
-	 * @return Response
 	 * @throws DomainRecordNotFoundException
 	 * @throws HttpBadRequestException
 	 */
 	abstract protected function action(): Response;
 
 	/**
-	 * @param  string $name
-	 * @return mixed
 	 * @throws HttpBadRequestException
 	 */
-	protected function resolveArg(string $name)
-	{
+	protected function resolveArg(string $name): mixed
+    {
 		if (!isset($this->args[$name])) {
 			throw new HttpBadRequestException($this->request, "Could not resolve argument `{$name}`.");
 		}
@@ -83,7 +80,7 @@ abstract class Action
 
 		try {
 			$input = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-		} catch (\JsonException $e) {
+		} catch (\JsonException) {
 			throw new HttpBadRequestException($this->request, 'Malformed JSON input.');
 		}
 
@@ -110,18 +107,16 @@ abstract class Action
 	}
 
 	/**
-	 * @param  array|object|null $data
 	 * @deprecated
 	 * @return Response
 	 */
-	protected function respondWithData($data = null): Response
+	protected function respondWithData(array|object|null $data = null): Response
 	{
 		$payload = new ActionPayload(200, $data);
 		return $this->respond($payload);
 	}
 
 	/**
-	 * @param ActionPayload $payload
 	 * @deprecated
 	 * @return Response
 	 */

@@ -7,7 +7,7 @@ use Nalgoo\Common\Domain\Exceptions\DomainLogicException;
 use Nalgoo\Common\Domain\IntValueInterface;
 use Nalgoo\Common\Domain\StringValueInterface;
 
-class Gender extends Enum implements IntValueInterface, StringValueInterface
+class Gender extends Enum implements IntValueInterface, StringValueInterface, \Stringable
 {
 	public const MALE_INT = 0;
 	public const MALE_STRING = 'm';

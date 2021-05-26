@@ -4,33 +4,16 @@ declare(strict_types=1);
 namespace Nalgoo\Common\Application\Handlers;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Exception\HttpInternalServerErrorException;
 use Slim\ResponseEmitter;
 
 class ShutdownHandler
 {
-	/**
-	 * @var Request
-	 */
-	private $request;
+	private Request $request;
 
-	/**
-	 * @var HttpErrorHandler
-	 */
-	private $errorHandler;
+	private HttpErrorHandler $errorHandler;
 
-	/**
-	 * @var bool
-	 */
-	private $displayErrorDetails;
+	private bool $displayErrorDetails;
 
-	/**
-	 * ShutdownHandler constructor.
-	 *
-	 * @param Request       $request
-	 * @param $errorHandler $errorHandler
-	 * @param bool          $displayErrorDetails
-	 */
 	public function __construct(
 		Request $request,
 		HttpErrorHandler $errorHandler,
