@@ -117,7 +117,6 @@ abstract class Action
 	}
 
 	/**
-	 * @param ActionPayload $payload
 	 * @deprecated
 	 * @return Response
 	 */
