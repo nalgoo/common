@@ -95,7 +95,7 @@ class OAuthMiddleware implements MiddlewareInterface
 	/**
 	 * Get class name of provided callable, if it is existing class/object, or null if it is function or Closure
 	 *
-	 * @param string|callable $callable
+	 * @param array|string|callable $callable
 	 */
 	private function getHandlerClass($callable): ?string
 	{

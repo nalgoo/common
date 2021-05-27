@@ -3,21 +3,13 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Infrastructure\AccessControl;
 
-class AccessControl
+interface AccessControl
 {
-
-
-	public function check(OperationInterface $operation): bool
-	{
-
-	}
+	public function check(OperationInterface $operation): bool;
 
 	/**
 	 * @throws AccessDeniedException
 	 */
-	public function enforce(OperationInterface $operation): bool
-	{
-
-	}
+	public function enforce(OperationInterface $operation): bool;
 
 }

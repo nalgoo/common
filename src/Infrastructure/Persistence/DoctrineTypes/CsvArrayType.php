@@ -4,7 +4,6 @@ namespace Nalgoo\Common\Infrastructure\Persistence\DoctrineTypes;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\SimpleArrayType;
-use Doctrine\DBAL\Types\Type;
 
 class CsvArrayType extends SimpleArrayType
 {
@@ -36,7 +35,7 @@ class CsvArrayType extends SimpleArrayType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getName()
+	public function getName(): string
 	{
 		return self::NAME;
 	}
@@ -52,7 +51,7 @@ class CsvArrayType extends SimpleArrayType
 
 		return $formatted;
 	}
-	
+
 	private function fromCsv(string $s)
 	{
 		$buffer = fopen('php://memory', 'r+');

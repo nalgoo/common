@@ -8,37 +8,22 @@ use Psr\Log\LogLevel;
 
 class QueryLogger implements SQLLogger
 {
-	/**
-	 * @var int|null
-	 */
-	private $start;
+	private ?int $start;
 
 	/**
 	 * @var string|null
 	 */
 	private $sql;
 
-	/**
-	 * @var array|null
-	 */
-	private $params;
+	private ?array $params = null;
 
-	/**
-	 * @var array|null
-	 */
-	private $types;
+	private ?array $types = null;
 
-	/**
-	 * @var LoggerInterface
-	 */
-	private $logger;
+	private LoggerInterface $logger;
 
-	/**
-	 * @var string
-	 */
-	private $logLevel;
+	private string $logLevel;
 
-	public function __construct(LoggerInterface $logger, $logLevel = LogLevel::DEBUG)
+	public function __construct(LoggerInterface $logger, string $logLevel = LogLevel::DEBUG)
 	{
 		$this->logger = $logger;
 		$this->logLevel = $logLevel;
