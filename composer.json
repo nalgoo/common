@@ -22,7 +22,8 @@
     "slim/psr7": "^1.3.0",
     "slim/slim": "^4.7.1",
     "symfony/serializer": "^5.2",
-    "webmozart/assert": "^1.9.1"
+    "webmozart/assert": "^1.9.1",
+    "zircote/swagger-php": "^3.2"
   },
   "autoload": {
     "psr-4": {
