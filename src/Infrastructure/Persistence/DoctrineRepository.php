@@ -20,7 +20,7 @@ abstract class DoctrineRepository
 	 * @throws Exceptions\ConnectionException
 	 * @throws PersistenceException
 	 */
-	protected function find(string $entityClassName, string|int $primaryKey): ?object
+	protected function find(string $entityClassName, $primaryKey): ?object
 	{
 		try {
 			return $this->entityManager->find($entityClassName, $primaryKey);
