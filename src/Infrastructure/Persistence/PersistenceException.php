@@ -10,10 +10,10 @@ class PersistenceException extends \Exception
 {
 	public static function from(\Throwable $e): self
 	{
-        return match (get_class($e)) {
-            ConnectionException::class => new Exceptions\ConnectionException(),
-            UniqueConstraintViolationException::class => new Exceptions\UniqueConstraintViolationException(),
-            default => new self(),
-        };
+		return match (get_class($e)) {
+			ConnectionException::class => new Exceptions\ConnectionException(),
+			UniqueConstraintViolationException::class => new Exceptions\UniqueConstraintViolationException(),
+			default => new self(),
+		};
 	}
 }

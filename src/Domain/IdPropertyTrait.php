@@ -25,7 +25,7 @@ trait IdPropertyTrait
 	}
 
 	public function getIdentifier(): IntegerIdentifier
-    {
-        return IntegerIdentifier::fromInt($this->getId());
-    }
+	{
+		return IntegerIdentifier::fromInt($this->getId());
+	}
 }

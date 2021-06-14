@@ -6,23 +6,23 @@ use Nalgoo\Common\Domain\Enums\StringEnum;
 
 class NamedValue
 {
-    protected StringEnum $name;
+	protected StringEnum $name;
 
-    protected mixed $value;
+	protected mixed $value;
 
-    public function __construct(StringEnum $name, mixed $value)
-    {
-        $this->value = $value;
-        $this->name = $name;
-    }
+	public function __construct(StringEnum $name, mixed $value)
+	{
+		$this->value = $value;
+		$this->name = $name;
+	}
 
-    public function getName(): StringEnum
-    {
-        return $this->name;
-    }
+	public function getName(): StringEnum
+	{
+		return $this->name;
+	}
 
-    public function getValue(): mixed
-    {
-        return $this->value;
-    }
+	public function getValue(): mixed
+	{
+		return $this->value;
+	}
 }

@@ -12,8 +12,8 @@ class IntegerIdentifier implements IntValueInterface
 		$this->id = $id;
 	}
 
-    /** @noinspection PhpParameterNameChangedDuringInheritanceInspection */
-    public static function fromInt(int $id): static
+	/** @noinspection PhpParameterNameChangedDuringInheritanceInspection */
+	public static function fromInt(int $id): static
 	{
 		return new static($id);
 	}
@@ -23,8 +23,8 @@ class IntegerIdentifier implements IntValueInterface
 		return $this->id;
 	}
 
-    public function sameAs(IntegerIdentifier $identifier): bool
-    {
-        return get_class($this) === get_class($identifier) && $this->id === $identifier->toInt();
-    }
+	public function sameAs(IntegerIdentifier $identifier): bool
+	{
+		return get_class($this) === get_class($identifier) && $this->id === $identifier->toInt();
+	}
 }

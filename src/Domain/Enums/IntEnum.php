@@ -7,7 +7,7 @@ use Nalgoo\Common\Domain\IntValueInterface;
 abstract class IntEnum extends Enum implements IntValueInterface
 {
 	public static function fromInt(int $value): static
-    {
+	{
 		return static::getInstanceFor($value);
 	}
 
