@@ -9,23 +9,34 @@ class UpdatedInput
 {
     protected array $updatedProperties = [];
 
-    protected function addUpdatedProperty(string $propertyName): void
+    protected function setProperty(string $propertyName, mixed $value): static
+    {
+        Assert::propertyExists($this, $propertyName);
+
+        $this->{$propertyName} = $value;
+        $this->addUpdatedProperty($propertyName);
+
+        return $this;
+    }
+
+    protected function addUpdatedProperty(string $propertyName): static
     {
         Assert::propertyExists($this, $propertyName);
 
         if (!in_array($propertyName, $this->updatedProperties, true)) {
             $this->updatedProperties[] = $propertyName;
         }
+
+        return $this;
     }
 
     /**
      * @param string $namedPropertyEnum classname of named property enum which to use
-     * @return array
      */
-    public function getUpdatedUserProperties(string $namedPropertyEnum): array
+    public function getUpdatedProperties(string $namedPropertyEnum): array
     {
         return array_map(
-            fn (string $propName) => new $namedPropertyEnum($propName, $this->{$propName}),
+            fn (string $propName) => new NamedValue(new $namedPropertyEnum($propName), $this->{$propName}),
             $this->updatedProperties,
         );
     }
