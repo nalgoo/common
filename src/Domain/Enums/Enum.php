@@ -2,6 +2,7 @@
 
 namespace Nalgoo\Common\Domain\Enums;
 
+use ReflectionClassConstant;
 use Webmozart\Assert\Assert;
 
 abstract class Enum
@@ -19,7 +20,7 @@ abstract class Enum
 	{
 		$reflection = new \ReflectionClass(static::class);
 
-		return array_values($reflection->getConstants());
+		return array_values($reflection->getConstants(ReflectionClassConstant::IS_PUBLIC));
 	}
 
 	protected static function getInstanceFor($value): static

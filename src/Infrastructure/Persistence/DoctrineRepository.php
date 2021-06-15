@@ -20,7 +20,7 @@ abstract class DoctrineRepository
 	 * @throws Exceptions\ConnectionException
 	 * @throws PersistenceException
 	 */
-	protected function find(string $entityClassName, string|int $primaryKey): ?object
+	protected function find(string $entityClassName, $primaryKey): ?object
 	{
 		try {
 			return $this->entityManager->find($entityClassName, $primaryKey);
@@ -52,7 +52,8 @@ abstract class DoctrineRepository
 		?array $orderBy = null,
 		int $limit = null,
 		int $offset = null
-	): array {
+	): array
+	{
 		try {
 			return $this->entityManager->getRepository($entityClassName)->findBy($criteria, $orderBy, $limit, $offset);
 		} catch (\Throwable $e) {
@@ -108,7 +109,7 @@ abstract class DoctrineRepository
 	 * @return mixed
 	 */
 	protected function queryDql(string $dql, array $params = [], ?int $limit = null, int $offset = 0): mixed
-    {
+	{
 		$query = $this->entityManager->createQuery($dql);
 
 		foreach ($params as $key => $value) {
@@ -123,21 +124,21 @@ abstract class DoctrineRepository
 			$query->setFirstResult($offset);
 		}
 
-        return $query->getResult();
+		return $query->getResult();
 	}
 
 	/**
 	 * @return mixed
 	 */
 	protected function querySingleScalarDql(string $dql, array $params = []): mixed
-    {
+	{
 		$query = $this->entityManager->createQuery($dql);
 
 		foreach ($params as $key => $value) {
 			$query->setParameter($key, $value);
 		}
 
-        return $query->getResult(Query::HYDRATE_SINGLE_SCALAR);
+		return $query->getResult(Query::HYDRATE_SINGLE_SCALAR);
 	}
 
 }

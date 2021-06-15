@@ -24,112 +24,112 @@ class Gender extends Enum implements IntValueInterface, StringValueInterface, \S
 
 	public static function fromValue(string|int|bool $value): static
 	{
-        return static::getInstanceFor($value);
+		return static::getInstanceFor($value);
 	}
 
 	public static function fromInt(int $value): static
 	{
-	    return static::fromValue($value);
+		return static::fromValue($value);
 	}
 
 	public static function fromString(string $value): static
-    {
-        return static::fromValue($value);
-    }
-
-    public static function fromBool(bool $value): static
-    {
-        return static::fromValue($value);
-    }
-
-    public function isFemale(): bool
-    {
-        return in_array($this->value, self::FEMALE);
-    }
-
-    public function isMale(): bool
-    {
-        return in_array($this->value, self::MALE);
-    }
-
-    public function isOther(): bool
-    {
-        return in_array($this->value, self::OTHER);
-    }
-
-    /**
-     * @throws DomainLogicException
-     */
-    public function toInt(): int
 	{
-	    if ($this->isMale()) {
-	        return self::MALE_INT;
-        }
-	    if ($this->isFemale()) {
-	        return self::FEMALE_INT;
-        }
-
-	    throw new DomainLogicException('Gender value ' . $this->value . ' not supported as int !');
+		return static::fromValue($value);
 	}
 
-    /**
-     * @throws DomainLogicException
-     */
-    public function toString(): string
+	public static function fromBool(bool $value): static
 	{
-        if ($this->isMale()) {
-            return self::MALE_STRING;
-        }
-        if ($this->isFemale()) {
-            return self::FEMALE_STRING;
-        }
-
-        if ($this->isOther()) {
-            return self::OTHER_STRING;
-        }
-
-        throw new DomainLogicException('Gender value ' . $this->value . ' not supported as string !');
-    }
-
-    /**
-     * @throws DomainLogicException
-     */
-    public function __toString () : string
-    {
-        return $this->toString();
-    }
-
-    /**
-     * @throws DomainLogicException
-     */
-    public function toBool(): bool
-	{
-        if ($this->isMale()) {
-            return self::MALE_BOOL;
-        }
-        if ($this->isFemale()) {
-            return self::FEMALE_BOOL;
-        }
-
-        throw new DomainLogicException('Gender value ' . $this->value . ' not supported as bool !');
+		return static::fromValue($value);
 	}
 
-    /**
-     * @throws DomainLogicException
-     */
-    public function asClaim(): string
-    {
-        if ($this->isMale()) {
-            return 'male';
-        }
-        if ($this->isFemale()) {
-            return 'female';
-        }
+	public function isFemale(): bool
+	{
+		return in_array($this->value, self::FEMALE);
+	}
 
-        if ($this->isOther()) {
-            return 'other';
-        }
+	public function isMale(): bool
+	{
+		return in_array($this->value, self::MALE);
+	}
 
-        throw new DomainLogicException('Gender value ' . $this->value . ' not supported as claim!');
-    }
+	public function isOther(): bool
+	{
+		return in_array($this->value, self::OTHER);
+	}
+
+	/**
+	 * @throws DomainLogicException
+	 */
+	public function toInt(): int
+	{
+		if ($this->isMale()) {
+			return self::MALE_INT;
+		}
+		if ($this->isFemale()) {
+			return self::FEMALE_INT;
+		}
+
+		throw new DomainLogicException('Gender value ' . $this->value . ' not supported as int !');
+	}
+
+	/**
+	 * @throws DomainLogicException
+	 */
+	public function toString(): string
+	{
+		if ($this->isMale()) {
+			return self::MALE_STRING;
+		}
+		if ($this->isFemale()) {
+			return self::FEMALE_STRING;
+		}
+
+		if ($this->isOther()) {
+			return self::OTHER_STRING;
+		}
+
+		throw new DomainLogicException('Gender value ' . $this->value . ' not supported as string !');
+	}
+
+	/**
+	 * @throws DomainLogicException
+	 */
+	public function __toString(): string
+	{
+		return $this->toString();
+	}
+
+	/**
+	 * @throws DomainLogicException
+	 */
+	public function toBool(): bool
+	{
+		if ($this->isMale()) {
+			return self::MALE_BOOL;
+		}
+		if ($this->isFemale()) {
+			return self::FEMALE_BOOL;
+		}
+
+		throw new DomainLogicException('Gender value ' . $this->value . ' not supported as bool !');
+	}
+
+	/**
+	 * @throws DomainLogicException
+	 */
+	public function asClaim(): string
+	{
+		if ($this->isMale()) {
+			return 'male';
+		}
+		if ($this->isFemale()) {
+			return 'female';
+		}
+
+		if ($this->isOther()) {
+			return 'other';
+		}
+
+		throw new DomainLogicException('Gender value ' . $this->value . ' not supported as claim!');
+	}
 }
