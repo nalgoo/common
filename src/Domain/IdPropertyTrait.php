@@ -12,7 +12,7 @@ use OpenApi\Annotations as OA;
 trait IdPropertyTrait
 {
 	/**
-	 * @ORM\Column(name="id", type="integer", length=10, nullable=false)
+	 * @ORM\Column(name="id", type="integer", length=10, nullable=false, options={"unsigned"=true})
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 * @OA\Property()
