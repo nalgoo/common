@@ -6,7 +6,7 @@ namespace Nalgoo\Common\Application\DTO;
 use Nalgoo\Common\Domain\StringValueInterface;
 use Webmozart\Assert\Assert;
 
-class UpdatedInput
+class UpdateInput
 {
 	protected array $updatedProperties = [];
 
