@@ -19,13 +19,8 @@ trait SequenceIdentifierTrait
 	 */
 	protected int $id;
 
-	public function getId(): int
+	public function getId(): IntegerIdentifier
 	{
-		return $this->id;
-	}
-
-	public function getIdentifier(): IntegerIdentifier
-	{
-		return IntegerIdentifier::fromInt($this->getId());
+		return IntegerIdentifier::fromInt($this->id);
 	}
 }
