@@ -9,7 +9,7 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Schema()
  */
-trait IdPropertyTrait
+trait SequenceIdentifierTrait
 {
 	/**
 	 * @ORM\Column(name="id", type="integer", length=10, nullable=false, options={"unsigned"=true})
