@@ -14,13 +14,8 @@ trait StringIdentifierTrait
 	 */
 	protected string $id;
 
-	public function getId(): string
+	public function getId(): StringIdentifier
 	{
-		return $this->id;
-	}
-
-	public function getIdentifier(): StringIdentifier
-	{
-		return StringIdentifier::fromString($this->getId());
+		return StringIdentifier::fromString($this->id);
 	}
 }
