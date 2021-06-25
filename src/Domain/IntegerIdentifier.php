@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Domain;
 
-class IntegerIdentifier implements IntValueInterface
+class IntegerIdentifier implements IntValueInterface, \JsonSerializable
 {
 	private int $id;
 
@@ -26,5 +26,10 @@ class IntegerIdentifier implements IntValueInterface
 	public function sameAs(IntegerIdentifier $identifier): bool
 	{
 		return get_class($this) === get_class($identifier) && $this->id === $identifier->toInt();
+	}
+
+	public function jsonSerialize()
+	{
+		return $this->id;
 	}
 }
