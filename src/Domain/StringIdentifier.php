@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Domain;
 
-class StringIdentifier extends StringValue implements StringValueInterface, \Stringable
+class StringIdentifier extends StringValue implements StringValueInterface, \Stringable, \JsonSerializable
 {
 	private string $id;
 
@@ -26,5 +26,10 @@ class StringIdentifier extends StringValue implements StringValueInterface, \Str
 	public function sameAs(StringIdentifier $identifier): bool
 	{
 		return get_class($this) === get_class($identifier) && $this->id === $identifier->toString();
+	}
+
+	public function jsonSerialize()
+	{
+		return $this->id;
 	}
 }
