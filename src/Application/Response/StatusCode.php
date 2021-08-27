@@ -73,6 +73,8 @@ class StatusCode
 	const ERROR_TOO_MANY_REQUESTS        = 429;
 
 	const INTERNAL_SERVER_ERROR = 500;
+	const NOT_IMPLEMENTED = 501;
+	const BAD_GATEWAY = 502;
 
 }
 
