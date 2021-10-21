@@ -28,11 +28,15 @@ class ApiKeyMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
 	{
-		if (!array_key_exists('api_key', $request->getQueryParams())) {
-			throw new ApiKeyNotSetException('Api key not set !');
+		if ($request->hasHeader('X-Api-Key')) {
+			$apiKey = $request->getHeaderLine('X-Api-Key');
+		} elseif (array_key_exists('api_key', $request->getQueryParams())) {
+			$apiKey = $request->getQueryParams()['api_key'];
+		} else {
+			throw new ApiKeyNotSetException('API key not set !');
 		}
 
-		if ($request->getQueryParams()['api_key'] !== $this->apiKey) {
+		if ($apiKey !== $this->apiKey) {
 			throw new InvalidApiKeyException('Invalid api key!');
 		}
 
