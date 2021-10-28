@@ -7,7 +7,9 @@ use Nalgoo\Common\Application\Exceptions\DeserializeException;
 
 interface SerializerInterface
 {
-	public function serialize(object|array|null $data): string;
+	const LIST_GROUP = 'list';
+
+	public function serialize(object|array|null $data, ?array $groups = null): string;
 
 	/**
 	 * Deserialize string into an object of supplied class name

@@ -40,7 +40,7 @@ class CsvArrayType extends SimpleArrayType
 		return self::NAME;
 	}
 
-	private function toCsv(array $data)
+	private function toCsv(array $data): bool|string
 	{
 		$buffer = fopen('php://memory', 'r+');
 
@@ -52,7 +52,7 @@ class CsvArrayType extends SimpleArrayType
 		return $formatted;
 	}
 
-	private function fromCsv(string $s)
+	private function fromCsv(string $s): bool|array
 	{
 		$buffer = fopen('php://memory', 'r+');
 

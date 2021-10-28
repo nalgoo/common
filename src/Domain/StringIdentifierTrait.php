@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Nalgoo\Common\Domain;
 
 use Doctrine\ORM\Mapping as ORM;
+use Nalgoo\Common\Application\Interfaces\SerializerInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 trait StringIdentifierTrait
 {
@@ -12,6 +14,7 @@ trait StringIdentifierTrait
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="NONE")
 	 */
+	#[Groups([SerializerInterface::LIST_GROUP])]
 	protected string $id;
 
 	public function getId(): StringIdentifier
