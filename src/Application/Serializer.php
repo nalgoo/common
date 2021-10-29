@@ -6,24 +6,34 @@ namespace Nalgoo\Common\Application;
 use Nalgoo\Common\Application\Interfaces\SerializerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
+use Webmozart\Assert\Assert;
 
-class Serializer implements SerializerInterface, SerializerAwareInterface, \Symfony\Component\Serializer\SerializerInterface
+class Serializer implements SerializerInterface, SerializerAwareInterface
 {
     use SerializerAwareTrait;
+
+	const FORMAT = 'json';
 
     public function __construct(\Symfony\Component\Serializer\SerializerInterface $serializer)
     {
         $this->setSerializer($serializer);
     }
 
-    public function serialize($data, string $format = 'json', array $context = []): string
+    public function serialize($data, ?array $groups = null): string
     {
-        return $this->serializer->serialize($data, $format, $context);
+		$context = [];
+
+		if (!is_null($groups)) {
+			Assert::allStringNotEmpty($groups, 'Serializer groups must be array of strings!');
+			$context['groups'] = $groups;
+		}
+
+		return $this->serializer->serialize($data, static::FORMAT, $context);
     }
 
     /** @noinspection PhpParameterNameChangedDuringInheritanceInspection */
-    public function deserialize($data, string $type, string $format = 'json', array $context = []): object
+    public function deserialize($data, string $type,): object
     {
-        return $this->serializer->deserialize($data, $type, $format, $context);
+        return $this->serializer->deserialize($data, $type, static::FORMAT);
     }
 }

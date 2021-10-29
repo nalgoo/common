@@ -15,11 +15,27 @@ use Psr\Http\Server\RequestHandlerInterface;
  **/
 class ApiKeyMiddleware implements MiddlewareInterface
 {
-	private string $apiKey;
+	protected string $apiKey;
 
 	public function __construct(string $apiKey)
 	{
 		$this->apiKey = $apiKey;
+	}
+
+	/**
+	 * @throws ApiKeyNotSetException
+	 */
+	protected function getRequestApiKey(ServerRequestInterface $request): string
+	{
+		if ($request->hasHeader('X-Api-Key')) {
+			return $request->getHeaderLine('X-Api-Key');
+		}
+
+		if (array_key_exists('api_key', $request->getQueryParams())) {
+			return $request->getQueryParams()['api_key'];
+		}
+
+		throw new ApiKeyNotSetException('API key not set !');
 	}
 
     /**
@@ -28,15 +44,7 @@ class ApiKeyMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
 	{
-		if ($request->hasHeader('X-Api-Key')) {
-			$apiKey = $request->getHeaderLine('X-Api-Key');
-		} elseif (array_key_exists('api_key', $request->getQueryParams())) {
-			$apiKey = $request->getQueryParams()['api_key'];
-		} else {
-			throw new ApiKeyNotSetException('API key not set !');
-		}
-
-		if ($apiKey !== $this->apiKey) {
+		if ($this->getRequestApiKey($request) !== $this->apiKey) {
 			throw new InvalidApiKeyException('Invalid api key!');
 		}
 

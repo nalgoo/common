@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nalgoo\Common\Application\Actions;
 
 use JsonSerializable;
+use Nalgoo\Common\Application\Response\StatusCode;
 
 class ActionPayload implements JsonSerializable
 {
@@ -14,7 +15,7 @@ class ActionPayload implements JsonSerializable
 	private ?ActionError $error;
 
 	public function __construct(
-		int $statusCode = 200,
+		int $statusCode = StatusCode::SUCCESS_OK,
         array|object|null $data = null,
 		?ActionError $error = null
 	) {

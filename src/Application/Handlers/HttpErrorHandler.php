@@ -6,6 +6,7 @@ namespace Nalgoo\Common\Application\Handlers;
 use Nalgoo\Common\Application\Actions\ActionError;
 use Nalgoo\Common\Application\Actions\ActionPayload;
 use Exception;
+use Nalgoo\Common\Application\Response\StatusCode;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpException;
@@ -25,7 +26,7 @@ class HttpErrorHandler extends SlimErrorHandler
 	protected function respond(): Response
 	{
 		$exception = $this->exception;
-		$statusCode = 500;
+		$statusCode = StatusCode::INTERNAL_SERVER_ERROR;
 		$error = new ActionError(
 			ActionError::SERVER_ERROR,
 			'An internal error has occurred while processing your request.'

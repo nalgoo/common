@@ -14,6 +14,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
+use Webmozart\Assert\Assert;
 
 abstract class Action
 {
@@ -106,27 +107,6 @@ abstract class Action
 		}
 	}
 
-	/**
-	 * @deprecated
-	 * @return Response
-	 */
-	protected function respondWithData(array|object|null $data = null): Response
-	{
-		$payload = new ActionPayload(200, $data);
-		return $this->respond($payload);
-	}
-
-	/**
-	 * @deprecated
-	 * @return Response
-	 */
-	protected function respond(ActionPayload $payload): Response
-	{
-		$json = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-		$this->response->getBody()->write($json);
-		return $this->response->withHeader('Content-Type', 'application/json');
-	}
-
 	protected function respondWithRedirect(string $uri, bool $changeToGet = false): Response
 	{
 		$statusCode = $changeToGet ? StatusCode::REDIRECTION_SEE_OTHER : StatusCode::REDIRECTION_TEMPORARY_REDIRECT;
@@ -136,18 +116,20 @@ abstract class Action
 			->withHeader('location', $uri);
 	}
 
-	protected function respondWithJson($data, int $statusCode = 200): Response
+	protected function respondWithJson($data, int $statusCode = StatusCode::SUCCESS_OK, ?array $groups = null): Response
 	{
-		$json = $this->getSerializer()->serialize($data);
+		if (!is_null($groups)) {
+			Assert::allStringNotEmpty($groups, 'Serializer groups must be array of strings!');
+		}
 
-		$this->response->getBody()->write($json);
+		$this->response->getBody()->write($this->getSerializer()->serialize($data, $groups));
 
 		return $this->response
 			->withStatus($statusCode)
 			->withHeader('Content-Type', 'application/json');
 	}
 
-	protected function setCookie(string $name, string $value, ?\DateTimeInterface $expires)
+	protected function setCookie(string $name, string $value, ?\DateTimeInterface $expires): static
 	{
 		$securePart = $this->request->getUri()->getScheme() === 'https' ? ';Secure' : '';
 
@@ -156,6 +138,8 @@ abstract class Action
 		$cookie = sprintf('%s=%s;Path=/%s;HttpOnly;SameSite=None%s', rawurlencode($name), rawurlencode($value), $expiresPart, $securePart);
 
 		$this->response = $this->response->withAddedHeader('Set-Cookie', $cookie);
+
+		return $this;
 	}
 
 	protected function getCookie(string $cookieName, ?string $default = null): ?string
