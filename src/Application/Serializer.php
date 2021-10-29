@@ -21,8 +21,14 @@ class Serializer implements SerializerInterface, SerializerAwareInterface
 
     public function serialize($data, ?array $groups = null): string
     {
-		Assert::allStringNotEmpty($groups, 'Serializer groups must be array of strings!');
-		return $this->serializer->serialize($data, static::FORMAT, !is_null($groups) ? ['groups' => $groups] : []);
+		$context = [];
+
+		if (!is_null($groups)) {
+			Assert::allStringNotEmpty($groups, 'Serializer groups must be array of strings!');
+			$context['groups'] = $groups;
+		}
+
+		return $this->serializer->serialize($data, static::FORMAT, $context);
     }
 
     /** @noinspection PhpParameterNameChangedDuringInheritanceInspection */

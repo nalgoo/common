@@ -118,7 +118,9 @@ abstract class Action
 
 	protected function respondWithJson($data, int $statusCode = StatusCode::SUCCESS_OK, ?array $groups = null): Response
 	{
-		Assert::allStringNotEmpty($groups, 'Serializer groups must be array of strings!');
+		if (!is_null($groups)) {
+			Assert::allStringNotEmpty($groups, 'Serializer groups must be array of strings!');
+		}
 
 		$this->response->getBody()->write($this->getSerializer()->serialize($data, $groups));
 
