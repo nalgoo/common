@@ -32,4 +32,9 @@ class IntegerIdentifier implements IntValueInterface, \JsonSerializable
 	{
 		return $this->id;
 	}
+
+	public function __toString(): string
+	{
+		return (string) $this->id;
+	}
 }
