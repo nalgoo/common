@@ -33,10 +33,4 @@ class PropertyNormalizer extends BasePropertyNormalizer
 
         return parent::isAllowedAttribute($classOrObject, $attribute, $format, $context);
     }
-
-	//ignore duplicate properties
-	protected function extractAttributes(object $object, string $format = null, array $context = []): array
-	{
-		return array_unique(parent::extractAttributes($object, $format, $context));
-	}
 }
