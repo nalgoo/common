@@ -30,7 +30,7 @@ class UriScope implements ScopeInterface
 
 	public function __construct(string $path, ResourceServerConfig $resourceServerConfig)
 	{
-		Assert::regex($path, '/^[a-z0-9\.\-]+$/');
+		Assert::regex($path, '/^[a-z0-9\.\-\/]*$/');
 
 		$this->path = $path;
 		$this->resourceServerConfig = $resourceServerConfig;
@@ -55,12 +55,12 @@ class UriScope implements ScopeInterface
 
 	public function getIdentifier(): string
 	{
-		return $this->resourceServerConfig->getScopeBaseUrl() . '/' . $this->path;
+		return rtrim($this->resourceServerConfig->getScopeBaseUrl() . '/' . $this->path, '/');
 	}
 
 	public function isSatisfiedBy(ScopeInterface $scope): bool
 	{
-		$testedScopeIdentifier = trim($scope->getIdentifier(), '/');
+		$testedScopeIdentifier = rtrim($scope->getIdentifier(), '/');
 
 		// scope must begin with http(s)://
 		if (!preg_match('/^https?:\/\//', $testedScopeIdentifier)) {
