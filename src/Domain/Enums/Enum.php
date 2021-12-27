@@ -5,7 +5,7 @@ namespace Nalgoo\Common\Domain\Enums;
 use ReflectionClassConstant;
 use Webmozart\Assert\Assert;
 
-abstract class Enum
+abstract class Enum implements \JsonSerializable
 {
 	protected mixed $value;
 
@@ -32,5 +32,10 @@ abstract class Enum
 		}
 
 		return $instances[$value];
+	}
+
+	public function jsonSerialize(): mixed
+	{
+		return $this->value;
 	}
 }
