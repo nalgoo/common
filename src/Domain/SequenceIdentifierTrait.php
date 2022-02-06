@@ -21,9 +21,4 @@ trait SequenceIdentifierTrait
 	 */
 	#[Groups([SerializerInterface::LIST_GROUP])]
 	protected int $id;
-
-	public function getId(): IntegerIdentifier
-	{
-		return IntegerIdentifier::fromInt($this->id);
-	}
 }

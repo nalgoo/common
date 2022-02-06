@@ -10,10 +10,7 @@ class QueryLogger implements SQLLogger
 {
 	private ?int $start;
 
-	/**
-	 * @var string|null
-	 */
-	private $sql;
+	private ?string $sql;
 
 	private ?array $params = null;
 

@@ -54,7 +54,7 @@ class StatusCode
 	const REDIRECTION_TEMPORARY_REDIRECT = 307;
 
 	/**
-	 * The request, and all future requests should be repeated using another URI
+	 * The request and all future requests should be repeated using another URI
 	 * (experimental)
 	 */
 	const REDIRECTION_PERMANENT_REDIRECT = 308;
