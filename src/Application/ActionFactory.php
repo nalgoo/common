@@ -21,7 +21,11 @@ abstract class ActionFactory implements ActionFactoryInterface
         $this->container = $container;
     }
 
-    public function getLogger(): LoggerInterface
+	/**
+	 * @throws \Psr\Container\ContainerExceptionInterface
+	 * @throws \Psr\Container\NotFoundExceptionInterface
+	 */
+	public function getLogger(): LoggerInterface
     {
         return $this->container->get(LoggerInterface::class);
     }

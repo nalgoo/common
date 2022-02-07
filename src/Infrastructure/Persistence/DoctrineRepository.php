@@ -15,7 +15,7 @@ abstract class DoctrineRepository
 	}
 
 	/**
-	 * Find Entity by it's primary key, return null if entity does not exist
+	 * Find Entity by its primary key, return null if entity does not exist
 	 *
 	 * @throws Exceptions\ConnectionException
 	 * @throws PersistenceException
