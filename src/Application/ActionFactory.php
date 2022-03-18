@@ -6,7 +6,9 @@ namespace Nalgoo\Common\Application;
 use Nalgoo\Common\Application\Interfaces\ActionFactoryInterface;
 use Nalgoo\Common\Application\Interfaces\UrlResolverInterface;
 use Nalgoo\Common\Infrastructure\Url\UrlResolver;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 
@@ -22,8 +24,8 @@ abstract class ActionFactory implements ActionFactoryInterface
     }
 
 	/**
-	 * @throws \Psr\Container\ContainerExceptionInterface
-	 * @throws \Psr\Container\NotFoundExceptionInterface
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	public function getLogger(): LoggerInterface
     {

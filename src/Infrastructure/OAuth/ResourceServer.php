@@ -9,11 +9,10 @@ use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Token;
+use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
-use Lcobucci\JWT\Validation\Constraint\ValidAt;
 use Lcobucci\JWT\Validation\Validator;
 use Nalgoo\Common\Infrastructure\Clock\ClockService;
-use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthAudienceException;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthScopeException;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthTokenException;
 use Psr\Http\Message\ServerRequestInterface;
@@ -31,9 +30,8 @@ class ResourceServer
 	}
 
 	/**
-	 * @throws OAuthTokenException
-	 * @throws OAuthAudienceException
 	 * @throws OAuthScopeException
+	 * @throws OAuthTokenException
 	 */
 	public function getValidToken(ServerRequestInterface $request, ScopeInterface $requiredScope): Token
 	{
@@ -93,7 +91,8 @@ class ResourceServer
 
 		$clock = new FrozenClock($this->clockService->getCurrentTime());
 
-		if (!$validator->validate($token, new ValidAt($clock, new \DateInterval('PT5S')))) {
+		//TODO - should we use LooseValidAt or StrictValidAt ?
+		if (!$validator->validate($token, new LooseValidAt($clock, new \DateInterval('PT5S')))) {
 			throw new OAuthTokenException('Access token is expired');
 		}
 

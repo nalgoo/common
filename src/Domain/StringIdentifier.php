@@ -28,7 +28,7 @@ class StringIdentifier extends StringValue implements StringValueInterface, \Str
 		return get_class($this) === get_class($identifier) && $this->id === $identifier->toString();
 	}
 
-	public function jsonSerialize()
+	public function jsonSerialize(): string
 	{
 		return $this->id;
 	}
