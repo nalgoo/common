@@ -23,13 +23,13 @@ class Persister
 	 * @noinspection PhpUnhandledExceptionInspection
 	 * @noinspection PhpDocMissingThrowsInspection
 	 */
-	public function transaction(callable $func)
+	public function transaction(callable $func): mixed
 	{
 		try {
-			return $this->entityManager->transactional($func);
+			return $this->entityManager->wrapInTransaction($func);
 		} catch (DoctrineUniqueConstraintException $e) {
 			throw new UniqueConstraintViolationException($e->getMessage());
-		} catch (ORMException) {
+		} /** @noinspection PhpDeprecationInspection */ catch (ORMException) {
 			throw new PersistenceException();
 		}
 	}
@@ -42,9 +42,9 @@ class Persister
 	{
 		try {
 			$this->entityManager->flush();
-		} catch (DoctrineUniqueConstraintException $e) {
+		} /** @noinspection PhpRedundantCatchClauseInspection */ catch (DoctrineUniqueConstraintException $e) {
 			throw new UniqueConstraintViolationException($e->getMessage());
-		} catch (ORMException) {
+		} /** @noinspection PhpDeprecationInspection */ catch (ORMException) {
 			throw new PersistenceException();
 		}
 	}

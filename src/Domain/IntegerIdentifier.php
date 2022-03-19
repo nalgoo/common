@@ -28,7 +28,7 @@ class IntegerIdentifier implements IntValueInterface, \JsonSerializable
 		return get_class($this) === get_class($identifier) && $this->id === $identifier->toInt();
 	}
 
-	public function jsonSerialize()
+	public function jsonSerialize(): int
 	{
 		return $this->id;
 	}

@@ -12,7 +12,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Slim\Exception\HttpForbiddenException;
 use Slim\Exception\HttpUnauthorizedException;
 use Slim\Interfaces\RouteInterface;
 use Slim\Routing\RouteContext;
@@ -29,7 +28,7 @@ class OAuthMiddleware implements MiddlewareInterface
 	}
 
 	/**
-	 * @throws HttpForbiddenException
+	 * @throws HttpUnauthorizedException
 	 * @throws \Exception
 	 */
 	public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface

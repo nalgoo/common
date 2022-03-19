@@ -8,7 +8,7 @@ use Psr\Log\LogLevel;
 
 class QueryLogger implements SQLLogger
 {
-	private ?int $start;
+	private ?float $start;
 
 	private ?string $sql;
 
@@ -50,7 +50,7 @@ class QueryLogger implements SQLLogger
 				sprintf('SQL Query %s with params %s executed in %.3fs',
 					$this->sql,
 					json_encode($params),
-					microtime(true) - $this->start
+					$duration
 				)
 			);
 		}
