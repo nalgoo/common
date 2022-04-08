@@ -75,6 +75,6 @@ class StatusCode
 	const INTERNAL_SERVER_ERROR = 500;
 	const NOT_IMPLEMENTED = 501;
 	const BAD_GATEWAY = 502;
-
+	const SERVICE_UNAVAILABLE = 503;
 }
 
