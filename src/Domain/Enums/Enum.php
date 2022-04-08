@@ -31,7 +31,7 @@ abstract class Enum implements \JsonSerializable
 			$instances[static::class][$value] = new static($value);
 		}
 
-		return $instances[$value];
+		return $instances[static::class][$value];
 	}
 
 	public function jsonSerialize(): mixed
