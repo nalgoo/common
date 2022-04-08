@@ -27,8 +27,8 @@ abstract class Enum implements \JsonSerializable
 	{
 		static $instances = [];
 
-		if (!isset($instances[$value])) {
-			$instances[$value] = new static($value);
+		if (!isset($instances[static::class][$value])) {
+			$instances[static::class][$value] = new static($value);
 		}
 
 		return $instances[$value];
