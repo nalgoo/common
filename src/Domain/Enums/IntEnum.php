@@ -4,6 +4,9 @@ namespace Nalgoo\Common\Domain\Enums;
 
 use Nalgoo\Common\Domain\IntValueInterface;
 
+/**
+ * @deprecated use build in enums !
+ */
 abstract class IntEnum extends Enum implements IntValueInterface
 {
 	public static function fromInt(int $value): static

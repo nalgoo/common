@@ -5,6 +5,9 @@ namespace Nalgoo\Common\Domain\Enums;
 use ReflectionClassConstant;
 use Webmozart\Assert\Assert;
 
+/**
+ * @deprecated use build in enums !
+ */
 abstract class Enum implements \JsonSerializable
 {
 	protected mixed $value;

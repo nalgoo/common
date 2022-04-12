@@ -4,6 +4,9 @@ namespace Nalgoo\Common\Domain\Enums;
 
 use Nalgoo\Common\Domain\StringValueInterface;
 
+/**
+ * @deprecated use build in enums !
+ */
 abstract class StringEnum extends Enum implements StringValueInterface, \Stringable
 {
 	public static function fromString(string $value): static
