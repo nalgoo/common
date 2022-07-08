@@ -8,6 +8,14 @@ use Slim\ResponseEmitter as SlimResponseEmitter;
 
 class ResponseEmitter extends SlimResponseEmitter
 {
+	protected string $allowHeaders;
+
+	public function __construct(string $allowHeaders = 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+	{
+		parent::__construct();
+		$this->allowHeaders = $allowHeaders;
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -19,7 +27,7 @@ class ResponseEmitter extends SlimResponseEmitter
 		$response = $response
 			->withHeader('Access-Control-Allow-Credentials', 'true')
 			->withHeader('Access-Control-Allow-Origin', $origin)
-			->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+			->withHeader('Access-Control-Allow-Headers', $this->allowHeaders)
 			->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
 
 		// add no-cache directive if not already exists
