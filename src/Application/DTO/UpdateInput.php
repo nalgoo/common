@@ -9,37 +9,31 @@ class UpdateInput
 {
 	protected array $updatedProperties = [];
 
-	protected function setProperty(string $propertyName, mixed $value): static
+	protected function setProperty(\StringBackedEnum $property, mixed $value): static
 	{
-		Assert::propertyExists($this, $propertyName);
+		Assert::propertyExists($this, $property->value);
 
-		$this->{$propertyName} = $value;
-		$this->addUpdatedProperty($propertyName);
+		$this->{$property->value} = $value;
+		$this->addUpdatedProperty($property);
 
 		return $this;
 	}
 
-	protected function addUpdatedProperty(string $propertyName): static
+	protected function addUpdatedProperty(\StringBackedEnum $property): static
 	{
-		Assert::propertyExists($this, $propertyName);
+		Assert::propertyExists($this, $property->value);
 
-		if (!in_array($propertyName, $this->updatedProperties, true)) {
-			$this->updatedProperties[] = $propertyName;
+		if (!in_array($property, $this->updatedProperties, true)) {
+			$this->updatedProperties[] = $property;
 		}
 
 		return $this;
 	}
 
-	/**
-	 * @param string $namedPropertyEnum name of backend enum (implements BackedEnum interface)
-	 * @noinspection PhpUndefinedMethodInspection
-	 */
-	public function getUpdatedProperties(string $namedPropertyEnum): array
+	public function getUpdatedProperties(): array
 	{
-		Assert::implementsInterface($namedPropertyEnum, \BackedEnum::class);
-
 		return array_map(
-			fn(string $propName) => new NamedValue($namedPropertyEnum::from($propName), $this->{$propName}),
+			fn(\StringBackedEnum $property) => new NamedValue($property, $this->{$property->value}),
 			$this->updatedProperties,
 		);
 	}
