@@ -38,7 +38,7 @@ class Persister
 	 * @throws UniqueConstraintViolationException
 	 * @throws PersistenceException
 	 */
-	public function flush()
+	public function flush(): void
 	{
 		try {
 			$this->entityManager->flush();

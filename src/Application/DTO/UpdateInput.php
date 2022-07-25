@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\DTO;
 
-use Nalgoo\Common\Domain\StringValueInterface;
 use Webmozart\Assert\Assert;
 
 class UpdateInput
@@ -32,15 +31,15 @@ class UpdateInput
 	}
 
 	/**
-	 * @param string $namedPropertyEnum name of class (Enum) which implementsStringValueInterface
+	 * @param string $namedPropertyEnum name of backend enum (implements BackedEnum interface)
 	 * @noinspection PhpUndefinedMethodInspection
 	 */
 	public function getUpdatedProperties(string $namedPropertyEnum): array
 	{
-		Assert::implementsInterface($namedPropertyEnum, StringValueInterface::class);
+		Assert::implementsInterface($namedPropertyEnum, \BackedEnum::class);
 
 		return array_map(
-			fn(string $propName) => new NamedValue($namedPropertyEnum::fromString($propName), $this->{$propName}),
+			fn(string $propName) => new NamedValue($namedPropertyEnum::from($propName), $this->{$propName}),
 			$this->updatedProperties,
 		);
 	}
