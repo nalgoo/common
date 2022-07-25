@@ -9,7 +9,7 @@ class UpdateInput
 {
 	protected array $updatedProperties = [];
 
-	protected function setProperty(\StringBackedEnum $property, mixed $value): static
+	protected function setProperty(\BackedEnum $property, mixed $value): static
 	{
 		Assert::propertyExists($this, $property->value);
 
@@ -19,7 +19,7 @@ class UpdateInput
 		return $this;
 	}
 
-	protected function addUpdatedProperty(\StringBackedEnum $property): static
+	protected function addUpdatedProperty(\BackedEnum $property): static
 	{
 		Assert::propertyExists($this, $property->value);
 
@@ -33,7 +33,7 @@ class UpdateInput
 	public function getUpdatedProperties(): array
 	{
 		return array_map(
-			fn(\StringBackedEnum $property) => new NamedValue($property, $this->{$property->value}),
+			fn(\BackedEnum $property) => new NamedValue($property, $this->{$property->value}),
 			$this->updatedProperties,
 		);
 	}
