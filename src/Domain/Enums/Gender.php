@@ -6,9 +6,39 @@ namespace Nalgoo\Common\Domain\Enums;
 use Nalgoo\Common\Domain\Exceptions\DomainLogicException;
 use Nalgoo\Common\Domain\IntValueInterface;
 use Nalgoo\Common\Domain\StringValueInterface;
+use ReflectionClassConstant;
+use Webmozart\Assert\Assert;
 
-class Gender extends Enum implements IntValueInterface, StringValueInterface, \Stringable
+class Gender implements IntValueInterface, StringValueInterface, \Stringable
 {
+	//copied from deprecated enum
+	protected mixed $value;
+
+	private function __construct($value)
+	{
+		Assert::oneOf($value, static::getConstants());
+
+		$this->value = $value;
+	}
+
+	protected static function getConstants(): array
+	{
+		$reflection = new \ReflectionClass(static::class);
+
+		return array_values($reflection->getConstants(ReflectionClassConstant::IS_PUBLIC));
+	}
+
+	protected static function getInstanceFor($value): static
+	{
+		static $instances = [];
+
+		if (!isset($instances[static::class][$value])) {
+			$instances[static::class][$value] = new static($value);
+		}
+
+		return $instances[static::class][$value];
+	}
+
 	public const MALE_INT = 0;
 	public const MALE_STRING = 'm';
 	public const MALE_BOOL = false;
@@ -131,5 +161,10 @@ class Gender extends Enum implements IntValueInterface, StringValueInterface, \S
 		}
 
 		throw new DomainLogicException('Gender value ' . $this->value . ' not supported as claim!');
+	}
+
+	public function jsonSerialize(): mixed
+	{
+		return $this->value;
 	}
 }
