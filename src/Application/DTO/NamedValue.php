@@ -2,21 +2,19 @@
 
 namespace Nalgoo\Common\Application\DTO;
 
-use Nalgoo\Common\Domain\Enums\StringEnum;
-
 class NamedValue
 {
-	protected StringEnum $name;
+	protected \BackedEnum $name;
 
 	protected mixed $value;
 
-	public function __construct(StringEnum $name, mixed $value)
+	public function __construct(\BackedEnum $name, mixed $value)
 	{
 		$this->value = $value;
 		$this->name = $name;
 	}
 
-	public function getName(): StringEnum
+	public function getName(): \BackedEnum
 	{
 		return $this->name;
 	}

@@ -3,44 +3,37 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\DTO;
 
-use Nalgoo\Common\Domain\StringValueInterface;
 use Webmozart\Assert\Assert;
 
 class UpdateInput
 {
 	protected array $updatedProperties = [];
 
-	protected function setProperty(string $propertyName, mixed $value): static
+	protected function setProperty(\BackedEnum $property, mixed $value): static
 	{
-		Assert::propertyExists($this, $propertyName);
+		Assert::propertyExists($this, $property->value);
 
-		$this->{$propertyName} = $value;
-		$this->addUpdatedProperty($propertyName);
+		$this->{$property->value} = $value;
+		$this->addUpdatedProperty($property);
 
 		return $this;
 	}
 
-	protected function addUpdatedProperty(string $propertyName): static
+	protected function addUpdatedProperty(\BackedEnum $property): static
 	{
-		Assert::propertyExists($this, $propertyName);
+		Assert::propertyExists($this, $property->value);
 
-		if (!in_array($propertyName, $this->updatedProperties, true)) {
-			$this->updatedProperties[] = $propertyName;
+		if (!in_array($property, $this->updatedProperties, true)) {
+			$this->updatedProperties[] = $property;
 		}
 
 		return $this;
 	}
 
-	/**
-	 * @param string $namedPropertyEnum name of class (Enum) which implementsStringValueInterface
-	 * @noinspection PhpUndefinedMethodInspection
-	 */
-	public function getUpdatedProperties(string $namedPropertyEnum): array
+	public function getUpdatedProperties(): array
 	{
-		Assert::implementsInterface($namedPropertyEnum, StringValueInterface::class);
-
 		return array_map(
-			fn(string $propName) => new NamedValue($namedPropertyEnum::fromString($propName), $this->{$propName}),
+			fn(\BackedEnum $property) => new NamedValue($property, $this->{$property->value}),
 			$this->updatedProperties,
 		);
 	}

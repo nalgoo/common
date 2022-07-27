@@ -31,7 +31,7 @@ class ResourceServerConfig
 		);
 	}
 
-	public function setScopePathPrefix(string $path)
+	public function setScopePathPrefix(string $path): void
 	{
 		$this->scopePathPrefix = trim('/', $path);
 	}

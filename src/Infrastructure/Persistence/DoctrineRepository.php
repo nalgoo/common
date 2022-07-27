@@ -81,7 +81,7 @@ abstract class DoctrineRepository
 	 * @throws Exceptions\UniqueConstraintViolationException
 	 * @throws PersistenceException
 	 */
-	protected function persist(object $entity)
+	protected function persist(object $entity): void
 	{
 		try {
 			$this->entityManager->persist($entity);
@@ -94,7 +94,7 @@ abstract class DoctrineRepository
 	 * @throws Exceptions\ConnectionException
 	 * @throws PersistenceException
 	 */
-	protected function remove(object $entity)
+	protected function remove(object $entity): void
 	{
 		try {
 			$this->entityManager->remove($entity);
@@ -103,11 +103,6 @@ abstract class DoctrineRepository
 		}
 	}
 
-	// todo:
-
-	/**
-	 * @return mixed
-	 */
 	protected function queryDql(string $dql, array $params = [], ?int $limit = null, int $offset = 0): mixed
 	{
 		$query = $this->entityManager->createQuery($dql);
@@ -127,9 +122,6 @@ abstract class DoctrineRepository
 		return $query->getResult();
 	}
 
-	/**
-	 * @return mixed
-	 */
 	protected function querySingleScalarDql(string $dql, array $params = []): mixed
 	{
 		$query = $this->entityManager->createQuery($dql);
