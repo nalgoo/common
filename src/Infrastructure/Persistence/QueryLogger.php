@@ -6,6 +6,12 @@ use Doctrine\DBAL\Logging\SQLLogger;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
+/**
+ * @deprecated Use {@see \Doctrine\DBAL\Logging\Middleware} or implement
+ *            {@see \Doctrine\DBAL\Driver\Middleware} instead.
+ *
+ * This will be removed in later versions to remove dependency on doctrine/dbal
+ */
 class QueryLogger implements SQLLogger
 {
 	private ?float $start;
