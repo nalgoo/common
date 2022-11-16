@@ -13,11 +13,9 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 	abstract public static function getRequiredScope(): ScopeInterface;
 
 	/**
-	 * Return "sub" claim from oAuth token or throw AuthorizationException if not set or empty
-	 *
 	 * @throws AuthorizationException
 	 */
-	protected function getAuthorizedUserId(): string
+	protected function getAuthorizedSubject(): string
 	{
 		$token = $this->getToken();
 
@@ -35,11 +33,38 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 	}
 
 	/**
+	 * @return string[]
 	 * @throws AuthorizationException
+	 */
+	protected function getAuthorizedScopes(): array
+	{
+		$claims = $this->getToken()->claims();
+
+		if ($claims->has('scope')) {
+			return array_filter(array_map('trim', explode(' ', $claims->get('scope'))));
+		}
+
+		return $claims->get('scopes', []);
+	}
+
+	/**
+	 * Return "sub" claim from oAuth token or throw AuthorizationException if not set or empty
+	 *
+	 * @throws AuthorizationException
+	 * @deprecated use getAuthorizedSubject()
+	 */
+	protected function getAuthorizedUserId(): string
+	{
+		return $this->getAuthorizedSubject();
+	}
+
+	/**
+	 * @throws AuthorizationException
+	 * @deprecated use getAuthorizedScopes()
 	 */
 	protected function getRequestedScopes(): array
 	{
-		return $this->getToken()->claims()->get('scopes', []);
+		return $this->getAuthorizedScopes();
 	}
 
 	/**
