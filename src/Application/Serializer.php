@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application;
 
+use Nalgoo\Common\Application\Exceptions\DeserializeException;
 use Nalgoo\Common\Application\Interfaces\SerializerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
@@ -34,6 +35,10 @@ class Serializer implements SerializerInterface, SerializerAwareInterface
     /** @noinspection PhpParameterNameChangedDuringInheritanceInspection */
     public function deserialize($data, string $type): object
     {
-        return $this->serializer->deserialize($data, $type, static::FORMAT);
+		try {
+			return $this->serializer->deserialize($data, $type, static::FORMAT);
+		} catch (\Throwable $e) {
+			throw new DeserializeException('Deserialization failed: ' . $e->getMessage(), 0, $e);
+		}
     }
 }
