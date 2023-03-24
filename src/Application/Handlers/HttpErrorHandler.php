@@ -67,4 +67,14 @@ class HttpErrorHandler extends SlimErrorHandler
 
 		return $response->withHeader('Content-Type', 'application/json');
 	}
+
+	/**
+	 * copy & paste, but removed "Tips"
+	 */
+	protected function writeToErrorLog(): void
+	{
+		$renderer = $this->callableResolver->resolve($this->logErrorRenderer);
+		$error = $renderer($this->exception, $this->logErrorDetails);
+		$this->logError($error);
+	}
 }
