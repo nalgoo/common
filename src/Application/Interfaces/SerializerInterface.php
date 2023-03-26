@@ -16,6 +16,6 @@ interface SerializerInterface
 	 *
 	 * @throws DeserializeException
 	 */
-	public function deserialize(string $data, string $className): object;
+	public function deserialize(string $data, string $className): object|array;
 
 }
