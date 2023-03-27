@@ -91,7 +91,7 @@ abstract class Action
 	/**
 	 * @throws HttpBadRequestException
 	 */
-	protected function deserializeBody(string $className): object
+	protected function deserializeBody(string $className): object|array
 	{
 		try {
 			return $this->getSerializer()->deserialize(

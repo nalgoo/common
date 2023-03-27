@@ -33,7 +33,7 @@ class Serializer implements SerializerInterface, SerializerAwareInterface
     }
 
     /** @noinspection PhpParameterNameChangedDuringInheritanceInspection */
-    public function deserialize($data, string $type): object
+    public function deserialize($data, string $type): object|array
     {
 		try {
 			return $this->serializer->deserialize($data, $type, static::FORMAT);
