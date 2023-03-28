@@ -149,11 +149,11 @@ abstract class Action
 		return array_key_exists($cookieName, $cookies) ? $cookies[$cookieName] : $default;
 	}
 
-	protected function getQuery(string $queryParamName, ?string $default = null): array|string|null
+	protected function getQuery(string $queryParamName, array|string|null $default = null): array|string|null
 	{
-		$cookies = $this->request->getQueryParams();
+		$queryParams = $this->request->getQueryParams();
 
-		return array_key_exists($queryParamName, $cookies) ? $cookies[$queryParamName] : $default;
+		return array_key_exists($queryParamName, $queryParams) ? $queryParams[$queryParamName] : $default;
 	}
 
 	/**
