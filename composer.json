@@ -14,16 +14,16 @@
     "ext-pdo": "*",
     "doctrine/dbal": "^2.13.9 | ^3.4.5",
     "doctrine/event-manager": "^1.2.0",
-    "doctrine/orm": "^2.13",
-    "lcobucci/jwt": "^4.2",
+    "doctrine/orm": "^2.13 | ^3",
+    "lcobucci/jwt": "^4.3",
     "league/uri": "^6.8",
     "psr/http-message": "^1.0",
     "psr/log": "^3.0",
     "slim/psr7": "^1.5",
     "slim/slim": "^4.10",
-    "symfony/serializer": "^5.4 || ^6.1",
+    "symfony/serializer": "^5.4 || ^6.2.8",
     "webmozart/assert": "^1.11",
-    "zircote/swagger-php": "^4.4"
+    "zircote/swagger-php": "^4.7.9"
   },
   "autoload": {
     "psr-4": {
