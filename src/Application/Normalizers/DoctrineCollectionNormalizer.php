@@ -16,6 +16,13 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 {
 	use NormalizerAwareTrait;
 
+	public function getSupportedTypes(?string $format): array
+	{
+		return [
+			Collection::class => true
+		];
+	}
+
 	public function normalize($object, string $format = null, array $context = []): mixed
 	{
 		if (!$this->supportsNormalization($object, $format)) {
