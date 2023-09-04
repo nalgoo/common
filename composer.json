@@ -21,7 +21,7 @@
     "psr/log": "^3.0",
     "slim/psr7": "^1.5",
     "slim/slim": "^4.10",
-    "symfony/serializer": "^5.4 || ^6.2.8",
+    "symfony/serializer": "^6.3.4",
     "webmozart/assert": "^1.11",
     "zircote/swagger-php": "^4.7.9"
   },

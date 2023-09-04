@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Normalizer\PropertyNormalizer as BasePropertyNo
  **/
 class PropertyNormalizer extends BasePropertyNormalizer
 {
-	public function normalize($object, string $format = null, array $context = [])
+	public function normalize($object, string $format = null, array $context = []): float|array|\ArrayObject|bool|int|string|null
 	{
 		if ($object instanceof Proxy && !$object->__isInitialized()) {
 			$object->__load();

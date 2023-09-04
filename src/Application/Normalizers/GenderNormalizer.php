@@ -24,6 +24,13 @@ class GenderNormalizer implements NormalizerInterface, DenormalizerInterface
 		return $object->toString();
 	}
 
+	public function getSupportedTypes(?string $format): array
+	{
+		return [
+			Gender::class => true
+		];
+	}
+
 	public function supportsNormalization($data, string $format = null): bool
 	{
 		return $data instanceof Gender;
