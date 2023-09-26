@@ -16,7 +16,7 @@
     "doctrine/event-manager": "^1.2.0",
     "doctrine/orm": "^2.13 | ^3",
     "lcobucci/jwt": "^4.3",
-    "league/uri": "^6.8",
+    "league/uri": "^6.8 | ^7.0",
     "psr/http-message": "^1.0",
     "psr/log": "^3.0",
     "slim/psr7": "^1.5",
