@@ -31,11 +31,11 @@ class UrlResolver implements UrlResolverInterface
 		return (string) $uri;
 	}
 
-	private static function versionAwareCreateUri(string $uri, string|UriInterface $baseUri): Uri
+	private static function versionAwareCreateUri(string $uri, string|\Stringable $baseUri): Uri
 	{
 		if (method_exists(Uri::class, 'fromBaseUri')) {
-			return Uri::fromBaseUri($uri, $baseUri);
+			return Uri::fromBaseUri($uri, (string) $baseUri);
 		}
-		return Uri::createFromBaseUri($uri, $baseUri);
+		return Uri::createFromBaseUri($uri, (string) $baseUri);
 	}
 }
