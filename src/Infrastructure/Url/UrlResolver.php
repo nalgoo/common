@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Infrastructure\Url;
 
-use League\Uri\Contracts\UriInterface;
 use League\Uri\Uri;
 use Nalgoo\Common\Application\Interfaces\UrlResolverInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\UriInterface;
 
 class UrlResolver implements UrlResolverInterface
 {
@@ -20,7 +20,7 @@ class UrlResolver implements UrlResolverInterface
 		$this->request = $request;
 	}
 
-	public function resolveUrl(string $path, array $queryParams = []): string
+	public function resolveUrl(string|\Stringable $path, array $queryParams = []): string
 	{
 		$uri = self::versionAwareCreateUri($path, $this->request->getUri());
 
@@ -31,11 +31,11 @@ class UrlResolver implements UrlResolverInterface
 		return (string) $uri;
 	}
 
-	private static function versionAwareCreateUri(string $uri, string|\Stringable $baseUri): Uri
+	private static function versionAwareCreateUri(string|\Stringable $uri, UriInterface $baseUri): Uri
 	{
 		if (method_exists(Uri::class, 'fromBaseUri')) {
-			return Uri::fromBaseUri($uri, (string) $baseUri);
+			return Uri::fromBaseUri($uri, $baseUri);
 		}
-		return Uri::createFromBaseUri($uri, (string) $baseUri);
+		return Uri::createFromBaseUri($uri, $baseUri);
 	}
 }
