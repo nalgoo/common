@@ -30,6 +30,9 @@ class UpdateInput
 		return $this;
 	}
 
+	/**
+	 * @return NamedValue[]
+	 */
 	public function getUpdatedProperties(): array
 	{
 		return array_map(
