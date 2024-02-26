@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Infrastructure\OAuth;
 
-use Lcobucci\Clock\FrozenClock;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\Signer\Key;
@@ -89,10 +88,8 @@ class ResourceServer
 			throw new OAuthTokenException('Access token signature could not be verified');
 		}
 
-		$clock = new FrozenClock($this->clockService->getCurrentTime());
-
 		//TODO - should we use LooseValidAt or StrictValidAt ?
-		if (!$validator->validate($token, new LooseValidAt($clock, new \DateInterval('PT5S')))) {
+		if (!$validator->validate($token, new LooseValidAt($this->clockService, new \DateInterval('PT5S')))) {
 			throw new OAuthTokenException('Access token is expired');
 		}
 

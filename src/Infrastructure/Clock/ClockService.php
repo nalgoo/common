@@ -3,8 +3,18 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Infrastructure\Clock;
 
-class ClockService
+use Psr\Clock\ClockInterface;
+
+class ClockService implements ClockInterface
 {
+	/**
+	 * PSR-20
+	 */
+	public function now(): \DateTimeImmutable
+	{
+		return $this->getCurrentTime();
+	}
+
 	public function getCurrentTime(): \DateTimeImmutable
 	{
 		return new \DateTimeImmutable();
@@ -21,5 +31,4 @@ class ClockService
 		/** @noinspection PhpUnhandledExceptionInspection */
 		return (new \DateTimeImmutable())->add(new \DateInterval(sprintf('PT%dM', $minutes)));
 	}
-
 }
