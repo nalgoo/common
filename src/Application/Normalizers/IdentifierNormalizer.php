@@ -10,6 +10,15 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class IdentifierNormalizer implements DenormalizerInterface
 {
+
+	public function getSupportedTypes(?string $format): array
+	{
+		return [
+			StringIdentifier::class => true,
+			IntegerIdentifier::class => true,
+		];
+	}
+
 	public function denormalize($data, string $type, string $format = null, array $context = [])
 	{
 		if (!$this->supportsDenormalization($data, $type)) {

@@ -5,11 +5,10 @@ namespace Nalgoo\Common\Domain;
 
 class StringIdentifier extends StringValue implements StringValueInterface, \Stringable, \JsonSerializable
 {
-	private string $id;
-
-	public function __construct(string $id)
+	public function __construct(
+		protected string $id
+	)
 	{
-		$this->id = $id;
 	}
 
     /** @noinspection PhpParameterNameChangedDuringInheritanceInspection */
