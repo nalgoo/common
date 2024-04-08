@@ -15,7 +15,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
 	use NormalizerAwareTrait;
-
 	public function getSupportedTypes(?string $format): array
 	{
 		return [
