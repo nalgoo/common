@@ -17,6 +17,8 @@ Changes
 - drop support for league/uri v6
 - bumped minor versions of other dependencies
 - added psr/clock interface
+- added UniqueConstraintException
+- added File and FileMeta interfaces and DTOs
 
 License
 -------
