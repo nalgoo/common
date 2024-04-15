@@ -16,9 +16,8 @@ Changes
 - bumped lcobucci/jwt to v5
 - drop support for league/uri v6
 - bumped minor versions of other dependencies
-- added psr/clock interface
+- added PSR-20 Clock interface
 - added UniqueConstraintException
-- added File and FileMeta interfaces and DTOs
 
 License
 -------
