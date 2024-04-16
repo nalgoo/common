@@ -16,6 +16,8 @@ Changes
 - bumped lcobucci/jwt to v5
 - drop support for league/uri v6
 - bumped minor versions of other dependencies
+- removed PropertyNormalizer and DoctrineCollectionNormalizer
+- updated GenderNormalizer and IdentifierNormalizer to match changes in upstream interfaces
 - added PSR-20 Clock interface
 - added UniqueConstraintException
 

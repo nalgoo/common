@@ -31,7 +31,7 @@ class GenderNormalizer implements NormalizerInterface, DenormalizerInterface
 		];
 	}
 
-	public function supportsNormalization($data, string $format = null): bool
+	public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
 	{
 		return $data instanceof Gender;
 	}
@@ -45,7 +45,7 @@ class GenderNormalizer implements NormalizerInterface, DenormalizerInterface
 		return Gender::fromValue($data);
 	}
 
-	public function supportsDenormalization($data, $type, $format = null): bool
+	public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
 	{
 		return (is_string($data) || is_int($data) || is_bool($data)) && $type === Gender::class;
 	}
