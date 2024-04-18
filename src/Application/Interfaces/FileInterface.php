@@ -8,4 +8,6 @@ interface FileInterface
 	public function getMeta(): FileMetaInterface;
 
 	public function getContents(): string;
+
+	public function getChecksum(): string;
 }

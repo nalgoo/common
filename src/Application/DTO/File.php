@@ -21,4 +21,9 @@ class File implements FileInterface
 	{
 		return $this->contents;
 	}
+
+	public function getChecksum(): string
+	{
+		return hash('sha3-256', $this->contents);
+	}
 }
