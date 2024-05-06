@@ -8,7 +8,7 @@ use Webmozart\Assert\Assert;
 class PartialDate
 {
 	public function __construct(
-		protected ?int  $year,
+		protected ?int $year,
 		protected ?int $month,
 		protected ?int $day,
 	) {
@@ -34,11 +34,11 @@ class PartialDate
 
 	}
 
-	public static function fromDate(\DateTimeImmutable $date): static
+	public static function fromDate(\DateTimeInterface $date): static
 	{
 		return new static(
-			(int)$date->format('Y'),
-			(int)$date->format('n'),
+			(int) $date->format('Y'),
+			(int) $date->format('n'),
 			(int) $date->format('j')
 		);
 	}
