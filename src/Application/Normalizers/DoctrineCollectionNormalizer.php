@@ -16,7 +16,7 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 {
 	use NormalizerAwareTrait;
 
-	public const CONTEXT_KEY = 'serialize-collection-without-keys';
+	public const SERIALIZE_COLLECTION_WITHOUT_KEYS = 'serialize-collection-without-keys';
 
 	public function __construct(
 		protected bool $useAsDefault = true
@@ -33,7 +33,7 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 
 	public function normalize($object, string $format = null, array $context = []): mixed
 	{
-		if (!$this->supportsNormalization($object, $format)) {
+		if (!$this->supportsNormalization($object, $format, $context)) {
 			throw new InvalidArgumentException('The object must be instance of doctrine Collection!');
 		}
 
@@ -42,6 +42,6 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 
 	public function supportsNormalization($data, string $format = null, array $context = []): bool
 	{
-		return ($context[static::CONTEXT_KEY] ?? $this->useAsDefault) && $data instanceof Collection;
+		return ($context[static::SERIALIZE_COLLECTION_WITHOUT_KEYS] ?? $this->useAsDefault) && $data instanceof Collection;
 	}
 }
