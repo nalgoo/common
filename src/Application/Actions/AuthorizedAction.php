@@ -4,38 +4,31 @@ declare(strict_types=1);
 namespace Nalgoo\Common\Application\Actions;
 
 use Lcobucci\JWT\Token;
-use Nalgoo\Common\Application\Exceptions\AuthorizationException;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthScopedInterface;
 use Nalgoo\Common\Infrastructure\OAuth\ScopeInterface;
+use Slim\Exception\HttpUnauthorizedException;
 
 abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 {
 	abstract public static function getRequiredScope(): ScopeInterface;
 
-	/**
-	 * @throws AuthorizationException
-	 */
 	protected function getAuthorizedSubject(): string
 	{
 		$token = $this->getToken();
 
 		if (!$token->claims()->has('sub')) {
-			throw new AuthorizationException('Missing `sub` claim in token');
+			throw new HttpUnauthorizedException($this->request, 'Missing `sub` claim in token');
 		}
 
 		$sub = $token->claims()->get('sub');
 
 		if ($sub === '') {
-			throw new AuthorizationException('Empty `sub` claim in token');
+			throw new HttpUnauthorizedException($this->request, 'Empty `sub` claim in token');
 		}
 
 		return $sub;
 	}
 
-	/**
-	 * @return string[]
-	 * @throws AuthorizationException
-	 */
 	protected function getAuthorizedScopes(): array
 	{
 		$claims = $this->getToken()->claims();
@@ -49,8 +42,6 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 
 	/**
 	 * Return "sub" claim from oAuth token or throw AuthorizationException if not set or empty
-	 *
-	 * @throws AuthorizationException
 	 * @deprecated use getAuthorizedSubject()
 	 */
 	protected function getAuthorizedUserId(): string
@@ -59,7 +50,6 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 	}
 
 	/**
-	 * @throws AuthorizationException
 	 * @deprecated use getAuthorizedScopes()
 	 */
 	protected function getRequestedScopes(): array
@@ -67,18 +57,8 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 		return $this->getAuthorizedScopes();
 	}
 
-	/**
-	 * @throws AuthorizationException
-	 */
 	private function getToken(): Token
 	{
-		/** @var Token $token */
-		$token = $this->request->getAttribute('oauth_token');
-
-		if (!$token) {
-			throw new AuthorizationException('Missing authorization token');
-		}
-
-		return $token;
+		return $this->request->getAttribute('oauth_token') ?? throw new HttpUnauthorizedException($this->request, 'Missing authorization token');
 	}
 }

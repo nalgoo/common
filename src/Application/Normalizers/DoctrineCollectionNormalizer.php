@@ -15,10 +15,19 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
 	use NormalizerAwareTrait;
+
+	public const CONTEXT_KEY = 'serialize-collection-without-keys';
+
+	public function __construct(
+		protected bool $useAsDefault = true
+	)
+	{
+	}
+
 	public function getSupportedTypes(?string $format): array
 	{
 		return [
-			Collection::class => true
+			Collection::class => $this->useAsDefault
 		];
 	}
 
@@ -31,8 +40,8 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 		return $this->normalizer->normalize($object->getValues(), $format, $context);
 	}
 
-	public function supportsNormalization($data, string $format = null): bool
+	public function supportsNormalization($data, string $format = null, array $context = []): bool
 	{
-		return $data instanceof Collection;
+		return ($context[static::CONTEXT_KEY] ?? $this->useAsDefault) && $data instanceof Collection;
 	}
 }
