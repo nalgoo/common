@@ -15,24 +15,33 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
 	use NormalizerAwareTrait;
+
+	public const SERIALIZE_COLLECTION_WITHOUT_KEYS = 'serialize-collection-without-keys';
+
+	public function __construct(
+		protected bool $useAsDefault = true
+	)
+	{
+	}
+
 	public function getSupportedTypes(?string $format): array
 	{
 		return [
-			Collection::class => true
+			Collection::class => $this->useAsDefault
 		];
 	}
 
 	public function normalize($object, string $format = null, array $context = []): mixed
 	{
-		if (!$this->supportsNormalization($object, $format)) {
+		if (!$this->supportsNormalization($object, $format, $context)) {
 			throw new InvalidArgumentException('The object must be instance of doctrine Collection!');
 		}
 
 		return $this->normalizer->normalize($object->getValues(), $format, $context);
 	}
 
-	public function supportsNormalization($data, string $format = null): bool
+	public function supportsNormalization($data, string $format = null, array $context = []): bool
 	{
-		return $data instanceof Collection;
+		return ($context[static::SERIALIZE_COLLECTION_WITHOUT_KEYS] ?? $this->useAsDefault) && $data instanceof Collection;
 	}
 }
