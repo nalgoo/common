@@ -24,6 +24,9 @@ class UrlResolver implements UrlResolverInterface
 	{
 		$uri = self::versionAwareCreateUri($path, $this->request->getUri());
 
+		// clear user/password from URI, which can be set in client credentials flow
+		$uri = $uri->withUserInfo(null);
+
 		if ($queryParams) {
 			$uri = $uri->withQuery(http_build_query($queryParams, '', '&', PHP_QUERY_RFC3986));
 		}
