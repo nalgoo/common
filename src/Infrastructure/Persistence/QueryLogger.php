@@ -22,14 +22,11 @@ class QueryLogger implements SQLLogger
 
 	private ?array $types = null;
 
-	private LoggerInterface $logger;
-
-	private string $logLevel;
-
-	public function __construct(LoggerInterface $logger, string $logLevel = LogLevel::DEBUG)
+	public function __construct(
+		protected LoggerInterface $logger,
+		protected string $logLevel = LogLevel::DEBUG
+	)
 	{
-		$this->logger = $logger;
-		$this->logLevel = $logLevel;
 	}
 
 	public function startQuery($sql, ?array $params = null, ?array $types = null)

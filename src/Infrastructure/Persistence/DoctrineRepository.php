@@ -7,11 +7,10 @@ use Doctrine\ORM\Query;
 
 abstract class DoctrineRepository
 {
-	protected EntityManager $entityManager;
-
-	public function __construct(EntityManager $entityManager)
+	public function __construct(
+		protected EntityManager $entityManager
+	)
 	{
-		$this->entityManager = $entityManager;
 	}
 
 	/**

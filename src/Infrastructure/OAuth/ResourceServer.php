@@ -19,14 +19,11 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class ResourceServer
 {
-	private Key $publicKey;
-
-	private ClockService $clockService;
-
-	public function __construct(Key $publicKey, ClockService $clockService)
+	public function __construct(
+		protected Key $publicKey,
+		protected ClockService $clockService
+	)
 	{
-		$this->publicKey = $publicKey;
-		$this->clockService = $clockService;
 	}
 
 	/**

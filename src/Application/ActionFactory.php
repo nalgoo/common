@@ -14,13 +14,12 @@ use Psr\Log\LoggerInterface;
 
 abstract class ActionFactory implements ActionFactoryInterface
 {
-    protected ContainerInterface $container;
-
     protected array $urlResolvers = [];
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(
+		protected ContainerInterface $container
+	)
     {
-        $this->container = $container;
     }
 
 	/**

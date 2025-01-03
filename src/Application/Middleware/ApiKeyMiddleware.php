@@ -15,11 +15,10 @@ use Psr\Http\Server\RequestHandlerInterface;
  **/
 class ApiKeyMiddleware implements MiddlewareInterface
 {
-	protected string $apiKey;
-
-	public function __construct(string $apiKey)
+	public function __construct(
+		protected string $apiKey
+	)
 	{
-		$this->apiKey = $apiKey;
 	}
 
 	/**

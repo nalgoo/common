@@ -17,14 +17,12 @@ class ActionError implements JsonSerializable
 	public const VALIDATION_ERROR = 'VALIDATION_ERROR';
 	public const VERIFICATION_ERROR = 'VERIFICATION_ERROR';
 
-	private string $type;
 
-	private ?string $description;
-
-	public function __construct(string $type, ?string $description)
+	public function __construct(
+		private string $type,
+		private ?string $description
+	)
 	{
-		$this->type = $type;
-		$this->description = $description;
 	}
 
 	public function getType(): string

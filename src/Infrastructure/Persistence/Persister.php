@@ -7,11 +7,10 @@ use Nalgoo\Common\Infrastructure\Persistence\Exceptions\UniqueConstraintViolatio
 
 class Persister
 {
-	private EntityManager $entityManager;
-
-	public function __construct(EntityManager $entityManager)
+	public function __construct(
+		private EntityManager $entityManager
+	)
 	{
-		$this->entityManager = $entityManager;
 	}
 
 	/**

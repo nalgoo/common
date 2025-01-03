@@ -24,16 +24,12 @@ class UriScope implements ScopeInterface
 {
 	private static ?ResourceServerConfig $defaultResourceServerConfig;
 
-	private string $path;
-
-	private ResourceServerConfig $resourceServerConfig;
-
-	public function __construct(string $path, ResourceServerConfig $resourceServerConfig)
+	public function __construct(
+		private string $path,
+		private ResourceServerConfig $resourceServerConfig
+	)
 	{
 		Assert::regex($path, '/^[a-z0-9\.\-\/]*$/');
-
-		$this->path = $path;
-		$this->resourceServerConfig = $resourceServerConfig;
 	}
 
 	public static function setDefaultResourceServerConfig(ResourceServerConfig $resourceServerConfig)

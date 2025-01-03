@@ -8,12 +8,10 @@ use Slim\ResponseEmitter as SlimResponseEmitter;
 
 class ResponseEmitter extends SlimResponseEmitter
 {
-	protected string $allowHeaders;
-
-	public function __construct(string $allowHeaders = 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+	public function __construct(
+		protected string $allowHeaders = 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
 	{
 		parent::__construct();
-		$this->allowHeaders = $allowHeaders;
 	}
 
 	/**

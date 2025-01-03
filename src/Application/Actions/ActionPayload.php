@@ -8,20 +8,11 @@ use Nalgoo\Common\Application\Response\StatusCode;
 
 class ActionPayload implements JsonSerializable
 {
-	private int $statusCode;
-
-	private array|object|null $data;
-
-	private ?ActionError $error;
-
 	public function __construct(
-		int $statusCode = StatusCode::SUCCESS_OK,
-        array|object|null $data = null,
-		?ActionError $error = null
+		private int $statusCode = StatusCode::SUCCESS_OK,
+		private array|object|null $data = null,
+		private ?ActionError $error = null
 	) {
-		$this->statusCode = $statusCode;
-		$this->data = $data;
-		$this->error = $error;
 	}
 
 	public function getStatusCode(): int
