@@ -20,11 +20,10 @@ class OAuthMiddleware implements MiddlewareInterface
 {
 	private const CLASS_NAME_REGEX = '[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*';
 
-	private ResourceServer $resourceServer;
-
-	public function __construct(ResourceServer $resourceServer)
+	public function __construct(
+		private ResourceServer $resourceServer
+	)
 	{
-		$this->resourceServer = $resourceServer;
 	}
 
 	/**

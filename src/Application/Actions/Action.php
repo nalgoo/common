@@ -18,8 +18,6 @@ use Webmozart\Assert\Assert;
 
 abstract class Action
 {
-	protected ActionFactoryInterface $actionFactory;
-
 	protected LoggerInterface $logger;
 
 	protected Request $request;
@@ -28,8 +26,9 @@ abstract class Action
 
 	protected array $args;
 
-	public function __construct(ActionFactoryInterface $actionFactory) {
-		$this->actionFactory = $actionFactory;
+	public function __construct(
+		protected ActionFactoryInterface $actionFactory
+	) {
 		$this->logger = $actionFactory->getLogger();
 	}
 

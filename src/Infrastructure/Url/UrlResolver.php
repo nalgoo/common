@@ -10,14 +10,10 @@ use Psr\Http\Message\UriInterface;
 
 class UrlResolver implements UrlResolverInterface
 {
-	/**
-	 * @var RequestInterface
-	 */
-	private RequestInterface $request;
-
-	public function __construct(RequestInterface $request)
+	public function __construct(
+		private RequestInterface $request
+	)
 	{
-		$this->request = $request;
 	}
 
 	public function resolveUrl(string|\Stringable $path, array $queryParams = []): string

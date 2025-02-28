@@ -11,14 +11,11 @@ use Webmozart\Assert\Assert;
 
 class Gender implements IntValueInterface, StringValueInterface, \Stringable
 {
-	//copied from deprecated enum
-	protected mixed $value;
-
-	private function __construct($value)
+	private function __construct(
+		protected mixed $value
+	)
 	{
 		Assert::oneOf($value, static::getConstants());
-
-		$this->value = $value;
 	}
 
 	protected static function getConstants(): array

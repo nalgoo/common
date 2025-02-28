@@ -9,17 +9,15 @@ class ResourceServerConfig
 {
 	private string $host;
 
-	private bool $secure;
-
-	private ?int $port;
-
 	private string $scopePathPrefix = 'auth';
 
-	public function __construct(string $hostName, bool $secure = true, ?int $port = null)
+	public function __construct(
+		string $hostName,
+		private bool $secure = true,
+		private ?int $port = null
+	)
 	{
 		$this->host = trim($hostName, '/');
-		$this->secure = $secure;
-		$this->port = $port;
 	}
 
 	public static function fromRequest(RequestInterface $request): static
