@@ -94,9 +94,9 @@ class ResourceServer
 				sprintf(
 					'Access token is expired: [now=%d] [token iat=%s, nbf=%s, exp=%s, sub=%s]',
 					$clock->now()->getTimestamp(),
-					$token->claims()->get('iat'),
-					$token->claims()->get('nbf'),
-					$token->claims()->get('exp'),
+					$token->claims()->get('iat')?->getTimestamp() ?? '',
+					$token->claims()->get('nbf')?->getTimestamp() ?? '',
+					$token->claims()->get('exp')?->getTimestamp() ?? '',
 					$token->claims()->get('sub'),
 				)
 			);
