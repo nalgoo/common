@@ -13,7 +13,8 @@ interface SerializerInterface
 
 	/**
 	 * Deserialize string into an object of supplied class name
-	 *
+	 * @template TObject of object
+	 * @return ($className is class-string<TObject> ? TObject : array)
 	 * @throws DeserializeException
 	 */
 	public function deserialize(string $data, string $className): object|array;

@@ -88,6 +88,8 @@ abstract class Action
 	}
 
 	/**
+	 * @template TObject of object
+	 * @return ($className is class-string<TObject> ? TObject : array)
 	 * @throws HttpBadRequestException
 	 */
 	protected function deserializeBody(string $className): object|array
