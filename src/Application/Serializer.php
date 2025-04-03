@@ -20,7 +20,7 @@ class Serializer implements SerializerInterface, SerializerAwareInterface
         $this->setSerializer($serializer);
     }
 
-    public function serialize($data, ?array $groups = null): string
+    public function serialize(mixed $data, ?array $groups = null): string
     {
 		$context = [];
 
@@ -33,7 +33,7 @@ class Serializer implements SerializerInterface, SerializerAwareInterface
     }
 
     /** @noinspection PhpParameterNameChangedDuringInheritanceInspection */
-    public function deserialize($data, string $type): object|array
+    public function deserialize(mixed $data, string $type): object|array
     {
 		try {
 			return $this->serializer->deserialize($data, $type, static::FORMAT);
