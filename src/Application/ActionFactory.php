@@ -11,6 +11,10 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\Encoder\DecoderInterface;
+use Symfony\Component\Serializer\Encoder\EncoderInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 abstract class ActionFactory implements ActionFactoryInterface
 {
@@ -42,6 +46,10 @@ abstract class ActionFactory implements ActionFactoryInterface
         return $this->urlResolvers[$hash];
     }
 
+	/**
+	 * @param array<NormalizerInterface|DenormalizerInterface> $normalizers
+	 * @param array<EncoderInterface|DecoderInterface>         $encoders
+	 */
     protected function createSerializer(array $normalizers = [], array $encoders = []): Serializer
     {
         return new Serializer(new \Symfony\Component\Serializer\Serializer($normalizers, $encoders));

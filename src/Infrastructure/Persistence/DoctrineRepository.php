@@ -15,11 +15,14 @@ abstract class DoctrineRepository
 
 	/**
 	 * Find Entity by its primary key, return null if entity does not exist
-	 *
+	 * @template TObject of object
+	 * @param class-string<TObject> $entityClassName
+	 * @param mixed $primaryKey
+	 * @return TObject|null
 	 * @throws Exceptions\ConnectionException
 	 * @throws PersistenceException
 	 */
-	protected function find(string $entityClassName, $primaryKey): ?object
+	protected function find(string $entityClassName, mixed $primaryKey): ?object
 	{
 		try {
 			return $this->entityManager->find($entityClassName, $primaryKey);
@@ -30,6 +33,9 @@ abstract class DoctrineRepository
 
 	/**
 	 * Find and return all entities from repository
+	 * @template TObject of object
+	 * @param class-string<TObject> $entityClassName
+	 * @return TObject[]
 	 *
 	 * @throws Exceptions\ConnectionException
 	 * @throws PersistenceException
@@ -41,6 +47,9 @@ abstract class DoctrineRepository
 
 	/**
 	 * Find and return all entities matching criteria, return empty array if no entity matches given criteria
+	 * @template TObject of object
+	 * @param class-string<TObject> $entityClassName
+	 * @return TObject[]
 	 *
 	 * @throws Exceptions\ConnectionException
 	 * @throws PersistenceException
@@ -62,6 +71,9 @@ abstract class DoctrineRepository
 
 	/**
 	 * Find and return first entity matching given criteria, return null if no entity matches given criteria
+	 * @template TObject of object
+	 * @param class-string<TObject> $entityClassName
+	 * @return TObject|null
 	 *
 	 * @throws Exceptions\ConnectionException
 	 * @throws PersistenceException
