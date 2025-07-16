@@ -130,13 +130,15 @@ abstract class Action
 			->withHeader('Content-Type', 'application/json');
 	}
 
-	protected function setCookie(string $name, string $value, ?\DateTimeInterface $expires): static
+	protected function setCookie(string $name, string $value, ?\DateTimeInterface $expires, ?bool $httpOnly = true): static
 	{
 		$securePart = $this->request->getUri()->getScheme() === 'https' ? ';Secure' : '';
 
 		$expiresPart = $expires ? (';Expires=' . $expires->format('r')) : '';
 
-		$cookie = sprintf('%s=%s;Path=/%s;HttpOnly;SameSite=None%s', rawurlencode($name), rawurlencode($value), $expiresPart, $securePart);
+		$httpOnlyPart = $httpOnly ? ';HttpOnly' : '';
+
+		$cookie = sprintf('%s=%s;Path=/%s%s;SameSite=None%s', rawurlencode($name), rawurlencode($value), $httpOnlyPart, $expiresPart, $securePart);
 
 		$this->response = $this->response->withAddedHeader('Set-Cookie', $cookie);
 
