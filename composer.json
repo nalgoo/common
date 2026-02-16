@@ -14,7 +14,7 @@
     "ext-pdo": "*",
     "doctrine/dbal": "^2.13.9 | ^3.4.5",
     "doctrine/event-manager": "^1.2.0",
-    "doctrine/migrations": "^3.9",
+    "doctrine/migrations": "^3.4",
     "doctrine/orm": "^2.13 | ^3",
     "lcobucci/jwt": "^4.3",
     "league/uri": "^6.8 | ^7.0",
