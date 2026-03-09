@@ -89,6 +89,7 @@ abstract class Action
 
 	/**
 	 * @template TObject of object
+	 * @param class-string<TObject>|string $className
 	 * @return ($className is class-string<TObject> ? TObject : array)
 	 * @throws HttpBadRequestException
 	 */
