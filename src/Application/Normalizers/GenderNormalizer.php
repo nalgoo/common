@@ -15,7 +15,7 @@ class GenderNormalizer implements NormalizerInterface, DenormalizerInterface
 	 * @TODO int, bool, and regular text support
 	 * @throws DomainLogicException
 	 */
-	public function normalize($object, string $format = null, array $context = []): string
+	public function normalize(mixed $object, ?string $format = null, array $context = []): string
 	{
 		if (!$object instanceof Gender) {
 			throw new InvalidArgumentException('The object must be instance of Gender!');
@@ -31,12 +31,12 @@ class GenderNormalizer implements NormalizerInterface, DenormalizerInterface
 		];
 	}
 
-	public function supportsNormalization($data, string $format = null): bool
+	public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
 	{
 		return $data instanceof Gender;
 	}
 
-	public function denormalize($data, $type, $format = null, array $context = []): Gender
+	public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): Gender
 	{
 		if (!$this->supportsDenormalization($data, $type)) {
 			throw new InvalidArgumentException();
@@ -45,7 +45,7 @@ class GenderNormalizer implements NormalizerInterface, DenormalizerInterface
 		return Gender::fromValue($data);
 	}
 
-	public function supportsDenormalization($data, $type, $format = null): bool
+	public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
 	{
 		return (is_string($data) || is_int($data) || is_bool($data)) && $type === Gender::class;
 	}

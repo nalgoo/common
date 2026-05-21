@@ -39,15 +39,18 @@ class Gender implements IntValueInterface, StringValueInterface, \Stringable
 	public const MALE_INT = 0;
 	public const MALE_STRING = 'm';
 	public const MALE_BOOL = false;
-	private const MALE = [self::MALE_INT, self::MALE_STRING, self::MALE_BOOL];
+	public const MALE_CLAIM = 'male';
+	private const MALE = [self::MALE_INT, self::MALE_STRING, self::MALE_BOOL, self::MALE_CLAIM];
 
 	public const FEMALE_INT = 1;
 	public const FEMALE_STRING = 'f';
 	public const FEMALE_BOOL = true;
-	private const FEMALE = [self::FEMALE_INT, self::FEMALE_STRING, self::FEMALE_BOOL];
+	public const FEMALE_CLAIM = 'female';
+	private const FEMALE = [self::FEMALE_INT, self::FEMALE_STRING, self::FEMALE_BOOL, self::FEMALE_CLAIM];
 
 	public const OTHER_STRING = 'x';
-	private const OTHER = [self::OTHER_STRING];
+	public const OTHER_CLAIM = 'other';
+	private const OTHER = [self::OTHER_STRING, self::OTHER_CLAIM];
 
 	public static function fromValue(string|int|bool $value): static
 	{
@@ -147,14 +150,14 @@ class Gender implements IntValueInterface, StringValueInterface, \Stringable
 	public function asClaim(): string
 	{
 		if ($this->isMale()) {
-			return 'male';
+			return self::MALE_CLAIM;
 		}
 		if ($this->isFemale()) {
-			return 'female';
+			return self::FEMALE_CLAIM;
 		}
 
 		if ($this->isOther()) {
-			return 'other';
+			return self::OTHER_CLAIM;
 		}
 
 		throw new DomainLogicException('Gender value ' . $this->value . ' not supported as claim!');
