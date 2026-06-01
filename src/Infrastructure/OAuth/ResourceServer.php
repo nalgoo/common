@@ -12,16 +12,16 @@ use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\Validator;
-use Nalgoo\Common\Infrastructure\Clock\ClockService;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthScopeException;
 use Nalgoo\Common\Infrastructure\OAuth\Exceptions\OAuthTokenException;
+use Psr\Clock\ClockInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class ResourceServer
 {
 	public function __construct(
 		protected Key $publicKey,
-		protected ClockService $clockService
+		protected ClockInterface $clock
 	)
 	{
 	}
@@ -86,7 +86,7 @@ class ResourceServer
 			throw new OAuthTokenException('Access token signature could not be verified');
 		}
 
-		$clock = new FrozenClock($this->clockService->getCurrentTime());
+		$clock = new FrozenClock($this->clock->now());
 
 		//TODO - should we use LooseValidAt or StrictValidAt ?
 		if (!$validator->validate($token, new LooseValidAt($clock, new \DateInterval('PT5S')))) {
