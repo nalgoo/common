@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\Normalizers;
 
+use ArrayObject;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
@@ -40,7 +41,7 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 	 *
 	 * @throws ExceptionInterface
 	 */
-	public function normalize($object, string $format = null, array $context = []): mixed
+	public function normalize($object, ?string $format = null, array $context = []): ArrayObject|array|string|int|float|bool|null
 	{
 		if (!$object instanceof Collection || !$this->supportsNormalization($object, $format, $context)) {
 			throw new InvalidArgumentException('The object must be instance of doctrine Collection!');
@@ -52,7 +53,7 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 	/**
 	 * @param array<string, mixed> $context
 	 */
-	public function supportsNormalization($data, string $format = null, array $context = []): bool
+	public function supportsNormalization($data, ?string $format = null, array $context = []): bool
 	{
 		return ($context[self::SERIALIZE_COLLECTION_WITHOUT_KEYS] ?? $this->useAsDefault) && $data instanceof Collection;
 	}
