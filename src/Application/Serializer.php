@@ -5,19 +5,15 @@ namespace Nalgoo\Common\Application;
 
 use Nalgoo\Common\Application\Exceptions\DeserializeException;
 use Nalgoo\Common\Application\Interfaces\SerializerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
-use Symfony\Component\Serializer\SerializerAwareTrait;
 use Webmozart\Assert\Assert;
 
-class Serializer implements SerializerInterface, SerializerAwareInterface
+class Serializer implements SerializerInterface
 {
-    use SerializerAwareTrait;
-
 	const FORMAT = 'json';
 
-    public function __construct(\Symfony\Component\Serializer\SerializerInterface $serializer)
-    {
-        $this->setSerializer($serializer);
+    public function __construct(
+        private \Symfony\Component\Serializer\SerializerInterface $serializer,
+    ) {
     }
 
     public function serialize(mixed $data, ?array $groups = null): string
