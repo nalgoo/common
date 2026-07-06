@@ -50,6 +50,8 @@ abstract class DoctrineRepository
 	 * Find and return all entities matching criteria, return empty array if no entity matches given criteria
 	 * @template TObject of object
 	 * @param class-string<TObject> $entityClassName
+	 * @param array<string, mixed> $criteria
+	 * @param array<string, string>|null $orderBy
 	 * @return TObject[]
 	 *
 	 * @throws Exceptions\ConnectionException
@@ -74,6 +76,8 @@ abstract class DoctrineRepository
 	 * Find and return first entity matching given criteria, return null if no entity matches given criteria
 	 * @template TObject of object
 	 * @param class-string<TObject> $entityClassName
+	 * @param array<string, mixed> $criteria
+	 * @param array<string, string>|null $orderBy
 	 * @return TObject|null
 	 *
 	 * @throws Exceptions\ConnectionException
@@ -115,6 +119,9 @@ abstract class DoctrineRepository
 		}
 	}
 
+	/**
+	 * @param array<string, mixed> $params
+	 */
 	protected function queryDql(string $dql, array $params = [], ?int $limit = null, int $offset = 0): mixed
 	{
 		$query = $this->entityManager->createQuery($dql);
@@ -134,6 +141,9 @@ abstract class DoctrineRepository
 		return $query->getResult();
 	}
 
+	/**
+	 * @param array<string, mixed> $params
+	 */
 	protected function querySingleScalarDql(string $dql, array $params = []): mixed
 	{
 		$query = $this->entityManager->createQuery($dql);
