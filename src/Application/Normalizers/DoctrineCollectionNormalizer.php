@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nalgoo\Common\Application\Normalizers;
 
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -24,6 +25,9 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 	{
 	}
 
+	/**
+	 * @return array<class-string|'*'|'object'|string, bool|null>
+	 */
 	public function getSupportedTypes(?string $format): array
 	{
 		return [
@@ -31,17 +35,25 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 		];
 	}
 
+	/**
+	 * @param array<string, mixed> $context
+	 *
+	 * @throws ExceptionInterface
+	 */
 	public function normalize($object, string $format = null, array $context = []): mixed
 	{
-		if (!$this->supportsNormalization($object, $format, $context)) {
+		if (!$object instanceof Collection || !$this->supportsNormalization($object, $format, $context)) {
 			throw new InvalidArgumentException('The object must be instance of doctrine Collection!');
 		}
 
 		return $this->normalizer->normalize($object->getValues(), $format, $context);
 	}
 
+	/**
+	 * @param array<string, mixed> $context
+	 */
 	public function supportsNormalization($data, string $format = null, array $context = []): bool
 	{
-		return ($context[static::SERIALIZE_COLLECTION_WITHOUT_KEYS] ?? $this->useAsDefault) && $data instanceof Collection;
+		return ($context[self::SERIALIZE_COLLECTION_WITHOUT_KEYS] ?? $this->useAsDefault) && $data instanceof Collection;
 	}
 }
