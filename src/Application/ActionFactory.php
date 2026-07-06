@@ -15,9 +15,11 @@ use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Webmozart\Assert\Assert;
 
 abstract class ActionFactory implements ActionFactoryInterface
 {
+    /** @var array<string, UrlResolverInterface> */
     protected array $urlResolvers = [];
 
     public function __construct(
@@ -32,7 +34,11 @@ abstract class ActionFactory implements ActionFactoryInterface
 	 */
 	public function getLogger(): LoggerInterface
     {
-        return $this->container->get(LoggerInterface::class);
+        $logger = $this->container->get(LoggerInterface::class);
+
+        Assert::isInstanceOf($logger, LoggerInterface::class);
+
+        return $logger;
     }
 
     public function getUrlResolver(RequestInterface $request): UrlResolverInterface
