@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  ci:
+    name: PHP ${{ matrix.php }} (${{ matrix.dependencies }} deps)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [ '8.2', '8.3', '8.4' ]
+        dependencies: [ 'highest' ]
+        include:
+          # Also verify the lowest versions allowed by composer.json still work.
+          - php: '8.2'
+            dependencies: 'lowest'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
+
+      - name: Static analysis (PHPStan)
+        run: composer phpstan

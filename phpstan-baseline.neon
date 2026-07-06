@@ -1,0 +1,691 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:__invoke\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:deserializeBody\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:deserializeBody\(\) should return array\|TObject of object but returns array\|object\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:getCookie\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:getJson\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:getJson\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:getQuery\(\) has parameter \$default with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:getQuery\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:getQuery\(\) should return array\|string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:resolveUrl\(\) has parameter \$queryParams with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:respondWithJson\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\Action\:\:respondWithJson\(\) has parameter \$groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Parameter \#1 \$data of method Nalgoo\\Common\\Application\\Interfaces\\SerializerInterface\:\:serialize\(\) expects array\|object\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Property Nalgoo\\Common\\Application\\Actions\\Action\:\:\$args type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/Action.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\ActionPayload\:\:__construct\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/ActionPayload.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\ActionPayload\:\:getData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/ActionPayload.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\ActionPayload\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/ActionPayload.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\AuthorizedAction\:\:getAuthorizedScopes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/AuthorizedAction.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\AuthorizedAction\:\:getAuthorizedScopes\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Application/Actions/AuthorizedAction.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\AuthorizedAction\:\:getAuthorizedSubject\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Application/Actions/AuthorizedAction.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\AuthorizedAction\:\:getRequestedScopes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Actions/AuthorizedAction.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Actions\\AuthorizedAction\:\:getToken\(\) should return Lcobucci\\JWT\\UnencryptedToken but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Application/Actions/AuthorizedAction.php
+
+		-
+			message: '#^Parameter \#2 \$string of function explode expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Actions/AuthorizedAction.php
+
+		-
+			message: '#^Call to function is_null\(\) with int\<31, max\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: src/Application/DTO/PartialDate.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: src/Application/DTO/PartialDate.php
+
+		-
+			message: '#^Instanceof between Error and Throwable will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/Application/Handlers/HttpErrorHandler.php
+
+		-
+			message: '#^Parameter \#1 \$error of method Slim\\Handlers\\ErrorHandler\:\:logError\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Handlers/HttpErrorHandler.php
+
+		-
+			message: '#^Parameter \#1 \$string of method Psr\\Http\\Message\\StreamInterface\:\:write\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Handlers/HttpErrorHandler.php
+
+		-
+			message: '#^Result of \|\| is always true\.$#'
+			identifier: booleanOr.alwaysTrue
+			count: 1
+			path: src/Application/Handlers/HttpErrorHandler.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Interfaces\\SerializerInterface\:\:deserialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Interfaces/SerializerInterface.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Interfaces\\SerializerInterface\:\:serialize\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Interfaces/SerializerInterface.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Interfaces\\SerializerInterface\:\:serialize\(\) has parameter \$groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Interfaces/SerializerInterface.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Interfaces\\UrlResolverInterface\:\:resolveUrl\(\) has parameter \$queryParams with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Interfaces/UrlResolverInterface.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Middleware\\ApiKeyMiddleware\:\:getRequestApiKey\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Application/Middleware/ApiKeyMiddleware.php
+
+		-
+			message: '#^Instanceof between Slim\\Interfaces\\RouteInterface and Slim\\Interfaces\\RouteInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/Application/Middleware/OAuthMiddleware.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Middleware\\OAuthMiddleware\:\:getHandlerClass\(\) has parameter \$callable with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Middleware/OAuthMiddleware.php
+
+		-
+			message: '#^PHPDoc tag @var with type Nalgoo\\Common\\Infrastructure\\OAuth\\OAuthScopedInterface is not subtype of native type string\|null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Application/Middleware/OAuthMiddleware.php
+
+		-
+			message: '#^Parameter \#1 \$className of method Nalgoo\\Common\\Application\\Middleware\\OAuthMiddleware\:\:implements\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Middleware/OAuthMiddleware.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\DoctrineCollectionNormalizer\:\:normalize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/DoctrineCollectionNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\DoctrineCollectionNormalizer\:\:normalize\(\) return type with generic class ArrayObject does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Application/Normalizers/DoctrineCollectionNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:denormalize\(\) has parameter \$context with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/GenderNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:getSupportedTypes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/GenderNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:normalize\(\) has parameter \$context with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/GenderNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:supportsDenormalization\(\) has parameter \$context with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/GenderNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:supportsNormalization\(\) has parameter \$context with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/GenderNormalizer.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Nalgoo\\Common\\Domain\\Enums\\Gender\:\:fromValue\(\) expects bool\|int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Normalizers/GenderNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\IdentifierNormalizer\:\:denormalize\(\) has parameter \$context with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/IdentifierNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\IdentifierNormalizer\:\:getSupportedTypes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/IdentifierNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\IdentifierNormalizer\:\:supportsDenormalization\(\) has parameter \$context with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/IdentifierNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:getSupportedTypes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/PropertyNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:normalize\(\) has parameter \$context with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/PropertyNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:normalize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/PropertyNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:normalize\(\) return type with generic class ArrayObject does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Application/Normalizers/PropertyNormalizer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:supportsNormalization\(\) has parameter \$context with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Normalizers/PropertyNormalizer.php
+
+		-
+			message: '#^Method Symfony\\Component\\Serializer\\Normalizer\\PropertyNormalizer\:\:supportsNormalization\(\) invoked with 3 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: src/Application/Normalizers/PropertyNormalizer.php
+
+		-
+			message: '#^Parameter \#1 \.\.\.\$arrays of function array_merge expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Normalizers/PropertyNormalizer.php
+
+		-
+			message: '#^Parameter \#2 \$value of method Psr\\Http\\Message\\MessageInterface\:\:withHeader\(\) expects array\<string\>\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Response/ResponseEmitter.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Serializer\:\:deserialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Serializer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Serializer\:\:deserialize\(\) should return array\|TObject of object but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Application/Serializer.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Application\\Serializer\:\:serialize\(\) has parameter \$groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Application/Serializer.php
+
+		-
+			message: '#^Parameter \#2 \$format of method Symfony\\Component\\Serializer\\SerializerInterface\:\:serialize\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Serializer.php
+
+		-
+			message: '#^Parameter \#3 \$format of method Symfony\\Component\\Serializer\\SerializerInterface\:\:deserialize\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Application/Serializer.php
+
+		-
+			message: '#^Binary operation "\." between ''Gender value '' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 4
+			path: src/Domain/Enums/Gender.php
+
+		-
+			message: '#^Cannot access offset class\-string\<static\(Nalgoo\\Common\\Domain\\Enums\\Gender\)\> on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/Domain/Enums/Gender.php
+
+		-
+			message: '#^Cannot access offset mixed on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/Domain/Enums/Gender.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Domain\\Enums\\Gender\:\:getConstants\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Domain/Enums/Gender.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Domain\\Enums\\Gender\:\:getInstanceFor\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Domain/Enums/Gender.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Domain\\Enums\\Gender\:\:getInstanceFor\(\) should return static\(Nalgoo\\Common\\Domain\\Enums\\Gender\) but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Domain/Enums/Gender.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: src/Domain/Enums/Gender.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: src/Domain/IntegerIdentifier.php
+
+		-
+			message: '#^Trait Nalgoo\\Common\\Domain\\SequenceIdentifierTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Domain/SequenceIdentifierTrait.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: src/Domain/StringIdentifier.php
+
+		-
+			message: '#^Trait Nalgoo\\Common\\Domain\\StringIdentifierTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Domain/StringIdentifierTrait.php
+
+		-
+			message: '#^Call to an undefined method Lcobucci\\JWT\\Token\:\:claims\(\)\.$#'
+			identifier: method.notFound
+			count: 5
+			path: src/Infrastructure/OAuth/ResourceServer.php
+
+		-
+			message: '#^Cannot call method get\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: src/Infrastructure/OAuth/ResourceServer.php
+
+		-
+			message: '#^Cannot call method getTimestamp\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: src/Infrastructure/OAuth/ResourceServer.php
+
+		-
+			message: '#^Parameter \#1 \$identifier of class Nalgoo\\Common\\Infrastructure\\OAuth\\Scope constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/OAuth/ResourceServer.php
+
+		-
+			message: '#^Parameter \#3 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/OAuth/ResourceServer.php
+
+		-
+			message: '#^Parameter \#4 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/OAuth/ResourceServer.php
+
+		-
+			message: '#^Parameter \#5 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/OAuth/ResourceServer.php
+
+		-
+			message: '#^Parameter \#6 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/OAuth/ResourceServer.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: src/Infrastructure/OAuth/ResourceServerConfig.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\OAuth\\UriScope\:\:setDefaultResourceServerConfig\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Infrastructure/OAuth/UriScope.php
+
+		-
+			message: '#^Static property Nalgoo\\Common\\Infrastructure\\OAuth\\UriScope\:\:\$defaultResourceServerConfig \(Nalgoo\\Common\\Infrastructure\\OAuth\\ResourceServerConfig\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Infrastructure/OAuth/UriScope.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Persistence\\DoctrineTypes\\CsvArrayType\:\:convertToDatabaseValue\(\) should return string\|null but returns bool\|string\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Persistence\\DoctrineTypes\\CsvArrayType\:\:convertToPHPValue\(\) should return list\<string\> but returns array\|bool\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Persistence\\DoctrineTypes\\CsvArrayType\:\:fromCsv\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Persistence\\DoctrineTypes\\CsvArrayType\:\:toCsv\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Parameter \#1 \$data of method Nalgoo\\Common\\Infrastructure\\Persistence\\DoctrineTypes\\CsvArrayType\:\:toCsv\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Parameter \#1 \$s of method Nalgoo\\Common\\Infrastructure\\Persistence\\DoctrineTypes\\CsvArrayType\:\:fromCsv\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fclose expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fgetcsv expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fgets expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fputcsv expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fwrite expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function rewind expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Parameter \#2 \$fields of function fputcsv expects array\<int\|string, bool\|float\|int\|string\|null\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/CsvArrayType.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Persistence\\DoctrineTypes\\IPAddressType\:\:getName\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/IPAddressType.php
+
+		-
+			message: '#^Parameter \#1 \$ip of function inet_ntop expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/IPAddressType.php
+
+		-
+			message: '#^Parameter \#1 \$ip of function inet_pton expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/DoctrineTypes/IPAddressType.php
+
+		-
+			message: '#^Property Nalgoo\\Common\\Infrastructure\\Persistence\\QueryLogger\:\:\$params type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Infrastructure/Persistence/QueryLogger.php
+
+		-
+			message: '#^Property Nalgoo\\Common\\Infrastructure\\Persistence\\QueryLogger\:\:\$sql \(string\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Infrastructure/Persistence/QueryLogger.php
+
+		-
+			message: '#^Property Nalgoo\\Common\\Infrastructure\\Persistence\\QueryLogger\:\:\$start \(float\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Infrastructure/Persistence/QueryLogger.php
+
+		-
+			message: '#^Property Nalgoo\\Common\\Infrastructure\\Persistence\\QueryLogger\:\:\$types is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Infrastructure/Persistence/QueryLogger.php
+
+		-
+			message: '#^Property Nalgoo\\Common\\Infrastructure\\Persistence\\QueryLogger\:\:\$types type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Infrastructure/Persistence/QueryLogger.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Infrastructure/Persistence/Schema/IndexNamingEventListener.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Persistence\\Schema\\IndexNamingEventListener\:\:collectJoinTableNames\(\) should return list\<string\> but returns list\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Infrastructure/Persistence/Schema/IndexNamingEventListener.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_unique expects an array of values castable to string, list\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Infrastructure/Persistence/Schema/IndexNamingEventListener.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Url\\QueryString\:\:__construct\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Infrastructure/Url/QueryString.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Url\\QueryString\:\:new\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Infrastructure/Url/QueryString.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Url\\QueryString\:\:new\(\) should return static\(Nalgoo\\Common\\Infrastructure\\Url\\QueryString\) but returns Nalgoo\\Common\\Infrastructure\\Url\\QueryString\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Infrastructure/Url/QueryString.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Url\\QueryString\:\:withParams\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Infrastructure/Url/QueryString.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''League\\\\Uri\\\\Uri'' and ''fromBaseUri'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Infrastructure/Url/UrlResolver.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Url\\UrlResolver\:\:resolveUrl\(\) has parameter \$queryParams with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Infrastructure/Url/UrlResolver.php
+
+		-
+			message: '#^Method Nalgoo\\Common\\Infrastructure\\Url\\UrlResolver\:\:versionAwareCreateUri\(\) should return League\\Uri\\Uri but returns League\\Uri\\Contracts\\UriInterface\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Infrastructure/Url/UrlResolver.php
