@@ -61,8 +61,8 @@ abstract class DoctrineRepository
 		string $entityClassName,
 		array $criteria,
 		?array $orderBy = null,
-		int $limit = null,
-		int $offset = null
+		?int $limit = null,
+		?int $offset = null
 	): array
 	{
 		try {
