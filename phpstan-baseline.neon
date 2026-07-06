@@ -229,106 +229,10 @@ parameters:
 			path: src/Application/Middleware/OAuthMiddleware.php
 
 		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\DoctrineCollectionNormalizer\:\:normalize\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/DoctrineCollectionNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\DoctrineCollectionNormalizer\:\:normalize\(\) return type with generic class ArrayObject does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Application/Normalizers/DoctrineCollectionNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:denormalize\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/GenderNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:getSupportedTypes\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/GenderNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:normalize\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/GenderNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:supportsDenormalization\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/GenderNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\GenderNormalizer\:\:supportsNormalization\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/GenderNormalizer.php
-
-		-
 			message: '#^Parameter \#1 \$value of static method Nalgoo\\Common\\Domain\\Enums\\Gender\:\:fromValue\(\) expects bool\|int\|string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Application/Normalizers/GenderNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\IdentifierNormalizer\:\:denormalize\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/IdentifierNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\IdentifierNormalizer\:\:getSupportedTypes\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/IdentifierNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\IdentifierNormalizer\:\:supportsDenormalization\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/IdentifierNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:getSupportedTypes\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/PropertyNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:normalize\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/PropertyNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:normalize\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/PropertyNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:normalize\(\) return type with generic class ArrayObject does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Application/Normalizers/PropertyNormalizer.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Application\\Normalizers\\PropertyNormalizer\:\:supportsNormalization\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Application/Normalizers/PropertyNormalizer.php
-
-		-
-			message: '#^Method Symfony\\Component\\Serializer\\Normalizer\\PropertyNormalizer\:\:supportsNormalization\(\) invoked with 3 parameters, 1\-2 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: src/Application/Normalizers/PropertyNormalizer.php
 
 		-
 			message: '#^Parameter \#1 \.\.\.\$arrays of function array_merge expects array, mixed given\.$#'
@@ -681,11 +585,5 @@ parameters:
 		-
 			message: '#^Method Nalgoo\\Common\\Infrastructure\\Url\\UrlResolver\:\:resolveUrl\(\) has parameter \$queryParams with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/Infrastructure/Url/UrlResolver.php
-
-		-
-			message: '#^Method Nalgoo\\Common\\Infrastructure\\Url\\UrlResolver\:\:versionAwareCreateUri\(\) should return League\\Uri\\Uri but returns League\\Uri\\Contracts\\UriInterface\.$#'
-			identifier: return.type
 			count: 1
 			path: src/Infrastructure/Url/UrlResolver.php

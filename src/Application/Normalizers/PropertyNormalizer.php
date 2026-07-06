@@ -26,6 +26,11 @@ class PropertyNormalizer implements NormalizerInterface, SerializerAwareInterfac
 	) {
 	}
 
+	/**
+	 * @param array<string, mixed> $context
+	 *
+	 * @return array<mixed>|\ArrayObject<string, mixed>|bool|float|int|string|null
+	 */
 	public function normalize(mixed $object, ?string $format = null, array $context = []): float|array|\ArrayObject|bool|int|string|null
 	{
 		if (interface_exists(\Doctrine\Persistence\Proxy::class) && ($object instanceof \Doctrine\Persistence\Proxy)) {
@@ -42,11 +47,17 @@ class PropertyNormalizer implements NormalizerInterface, SerializerAwareInterfac
 		return $this->normalizer->normalize($object, $format, $context);
 	}
 
+	/**
+	 * @param array<string, mixed> $context
+	 */
 	public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
 	{
 		return $this->normalizer->supportsNormalization($data, $format, $context);
 	}
 
+	/**
+	 * @return array<class-string|'*'|'object'|string, bool|null>
+	 */
 	public function getSupportedTypes(?string $format): array
 	{
 		return $this->normalizer->getSupportedTypes($format);

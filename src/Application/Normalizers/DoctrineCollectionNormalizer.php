@@ -39,6 +39,8 @@ class DoctrineCollectionNormalizer implements NormalizerInterface, NormalizerAwa
 	/**
 	 * @param array<string, mixed> $context
 	 *
+	 * @return array<mixed>|\ArrayObject<string, mixed>|bool|float|int|string|null
+	 *
 	 * @throws ExceptionInterface
 	 */
 	public function normalize($object, ?string $format = null, array $context = []): ArrayObject|array|string|int|float|bool|null
