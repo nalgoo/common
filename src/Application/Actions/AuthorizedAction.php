@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nalgoo\Common\Application\Actions;
 
-use Lcobucci\JWT\Token;
+use Lcobucci\JWT\UnencryptedToken;
 use Nalgoo\Common\Infrastructure\OAuth\OAuthScopedInterface;
 use Nalgoo\Common\Infrastructure\OAuth\ScopeInterface;
 use Slim\Exception\HttpUnauthorizedException;
@@ -57,7 +57,7 @@ abstract class AuthorizedAction extends Action implements OAuthScopedInterface
 		return $this->getAuthorizedScopes();
 	}
 
-	private function getToken(): Token
+	private function getToken(): UnencryptedToken
 	{
 		return $this->request->getAttribute('oauth_token') ?? throw new HttpUnauthorizedException($this->request, 'Missing authorization token');
 	}
