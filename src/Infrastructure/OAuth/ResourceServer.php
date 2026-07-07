@@ -8,7 +8,6 @@ use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
-use Lcobucci\JWT\Token;
 use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
@@ -31,7 +30,7 @@ class ResourceServer
 	 * @throws OAuthScopeException
 	 * @throws OAuthTokenException
 	 */
-	public function getValidToken(ServerRequestInterface $request, ScopeInterface $requiredScope): Token
+	public function getValidToken(ServerRequestInterface $request, ScopeInterface $requiredScope): UnencryptedToken
 	{
 		$token = $this->validateToken($request);
 
@@ -43,7 +42,7 @@ class ResourceServer
 	/**
 	 * @throws OAuthScopeException
 	 */
-	protected function validateScope(Token $token, ScopeInterface $requiredScope): bool
+	protected function validateScope(UnencryptedToken $token, ScopeInterface $requiredScope): bool
 	{
 		$scopes = array_map(
 			fn ($scopeIdentifier) => new Scope($scopeIdentifier),
@@ -64,7 +63,7 @@ class ResourceServer
 	 *
 	 * @throws OAuthTokenException
 	 */
-	protected function validateToken(ServerRequestInterface $request): Token
+	protected function validateToken(ServerRequestInterface $request): UnencryptedToken
 	{
 		if ($request->hasHeader('authorization') === false) {
 			throw new OAuthTokenException('Missing "Authorization" header');
