@@ -8,3 +8,8 @@ parameters:
 	level: max
 	paths:
 		- src
+	# Single baseline shared by the lowest- and highest-deps CI runs - do not fail on umatched ignored errors
+	reportUnmatchedIgnoredErrors: false
+	ignoreErrors:
+		-
+			identifier: trait.unused
