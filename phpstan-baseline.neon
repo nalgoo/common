@@ -295,12 +295,6 @@ parameters:
 			path: src/Domain/Enums/Gender.php
 
 		-
-			message: '#^Method Nalgoo\\Common\\Domain\\Enums\\Gender\:\:getConstants\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Domain/Enums/Gender.php
-
-		-
 			message: '#^Method Nalgoo\\Common\\Domain\\Enums\\Gender\:\:getInstanceFor\(\) has parameter \$value with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1

@@ -18,6 +18,9 @@ class Gender implements IntValueInterface, StringValueInterface, \Stringable
 		Assert::oneOf($value, static::getConstants());
 	}
 
+	/**
+	 * @return array<int, int|string|bool>
+	 */
 	protected static function getConstants(): array
 	{
 		$reflection = new \ReflectionClass(static::class);
