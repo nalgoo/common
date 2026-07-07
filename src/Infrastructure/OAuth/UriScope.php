@@ -32,7 +32,7 @@ class UriScope implements ScopeInterface
 		Assert::regex($path, '/^[a-z0-9\.\-\/]*$/');
 	}
 
-	public static function setDefaultResourceServerConfig(ResourceServerConfig $resourceServerConfig)
+	public static function setDefaultResourceServerConfig(ResourceServerConfig $resourceServerConfig): void
 	{
 		self::$defaultResourceServerConfig = $resourceServerConfig;
 	}
